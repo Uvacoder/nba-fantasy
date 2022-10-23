@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getTeams } from "../../services";
-import MainLayout from "../../layouts/MainLayout";
+import { MainLayout } from "../../layouts/MainLayout";
 import { PointsTotal, CategoryTotals, LoadingSkeleton } from "../../components";
 import { StyledDashboard } from "./Dashboard.styles";
 import { TabTypes } from "../../types";
