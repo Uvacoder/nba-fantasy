@@ -1,0 +1,31 @@
+export const statMap: any = {
+  0: "PTS",
+  1: "BLK",
+  2: "STL",
+  3: "AST",
+  6: "REB",
+  11: "TO",
+  13: "FGM",
+  14: "FGA",
+  15: "FTM",
+  16: "FTA",
+  17: "3PM",
+  19: "FG_PERCENTAGE",
+  20: "FT_PERCENTAGE",
+};
+
+export const statPointConversion: any = {
+  PTS: 1,
+  BLK: 4,
+  STL: 4,
+  AST: 2,
+  REB: 1,
+  TO: -2,
+  FGM: 2,
+  FGA: -1,
+  FTM: 1,
+  FTA: -1,
+  "3PM": 1,
+  FG_PERCENTAGE: 0,
+  FT_PERCENTAGE: 0,
+};
