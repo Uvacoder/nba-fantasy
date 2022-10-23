@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Fantasy Basketball UI",
+  "name": "nba-fantasy-ui",
   "icons": [
     {
       "src": "favicon.ico",
