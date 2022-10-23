@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 nba-fantasy-ui/node_modules
 nba-fantasy-ui/.pnp
@@ -23,6 +21,9 @@ nba-fantasy-ui/npm-debug.log*
 nba-fantasy-ui/yarn-debug.log*
 nba-fantasy-ui/yarn-error.log*
 
+
 nba-fantasy-api/node_modules
 nba-fantasy-api/.DS_Store
 nba-fantasy-api/variables.env
+nba-fantasy-api/variables.env.now
+nba-fantasy-api/*.log
