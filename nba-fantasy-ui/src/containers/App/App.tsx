@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
-import MainLayout from "./Layouts/MainLayout";
-import { TabTypes } from "./types";
-import { PointsTotal, CategoryTotals, LoadingSkeleton } from "./components";
+import MainLayout from "../../Layouts/MainLayout";
+import { TabTypes } from "../../types";
+import { PointsTotal, CategoryTotals, LoadingSkeleton } from "../../components";
 
 const statMap: any = {
   0: "PTS",
@@ -37,7 +37,7 @@ const statPointConversion: any = {
   FT_PERCENTAGE: 0,
 };
 
-function App() {
+export function App() {
   const [tab, setTab] = useState<TabTypes>(TabTypes.Points);
   const [isLoading, setIsLoading] = useState(false);
   const [teams, setTeams] = useState([]);
