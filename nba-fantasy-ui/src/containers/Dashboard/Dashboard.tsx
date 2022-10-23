@@ -45,15 +45,15 @@ export function Dashboard() {
   return (
     <StyledDashboard>
       <MainLayout currentTab={tab} setTab={setTab}>
-        <LoadingSkeleton />
-        {/* {isLoading ? (
+        {/* <LoadingSkeleton /> */}
+        {isLoading ? (
           <LoadingSkeleton />
         ) : (
           <>
             {tab === TabTypes.Points && <PointsTotal teams={updatedTeams} />}
             {tab === TabTypes.Categories && <CategoryTotals />}
           </>
-        )} */}
+        )}
       </MainLayout>
     </StyledDashboard>
   );
