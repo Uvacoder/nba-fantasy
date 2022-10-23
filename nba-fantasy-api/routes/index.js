@@ -10,7 +10,7 @@ const espn_s2 =
 const SWID = "{F204CE4B-0969-4DDD-8BD0-33A0B47E3FF8}";
 
 // Do work here
-router.get("/", async (req, res) => {
+router.get("/api", async (req, res) => {
   try {
     const headers = {
       Cookie: `SWID=${SWID}; espn_s2=${espn_s2}`,
