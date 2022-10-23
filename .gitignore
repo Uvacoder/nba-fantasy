@@ -1,0 +1,28 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+nba-fantasy-ui/node_modules
+nba-fantasy-ui/.pnp
+nba-fantasy-ui/.pnp.js
+
+
+# testing
+nba-fantasy-ui/coverage
+
+# production
+nba-fantasy-ui/build
+
+# misc
+nba-fantasy-ui/.DS_Store
+nba-fantasy-ui/.env.local
+nba-fantasy-ui/.env.development.local
+nba-fantasy-ui/.env.test.local
+nba-fantasy-ui/.env.production.local
+
+nba-fantasy-ui/npm-debug.log*
+nba-fantasy-ui/yarn-debug.log*
+nba-fantasy-ui/yarn-error.log*
+
+nba-fantasy-api/node_modules
+nba-fantasy-api/.DS_Store
+nba-fantasy-api/variables.env

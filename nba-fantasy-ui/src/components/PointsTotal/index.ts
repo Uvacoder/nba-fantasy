@@ -1,0 +1,1 @@
+export { PointsTotal } from "./PointsTotal";
