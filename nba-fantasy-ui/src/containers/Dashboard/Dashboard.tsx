@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getTeams } from "../../services";
 import MainLayout from "../../layouts/MainLayout";
-import { TabTypes } from "../../types";
 import { PointsTotal, CategoryTotals, LoadingSkeleton } from "../../components";
+import { StyledDashboard } from "./Dashboard.styles";
+import { TabTypes } from "../../types";
 import { statMap, statPointConversion } from "../../utils/helpers";
 
 export function Dashboard() {
@@ -14,8 +15,8 @@ export function Dashboard() {
     const loadData = async () => {
       setIsLoading(true);
       try {
-        const response: any = await axios.get("http://localhost:7777");
-        setTeams(response.data.teams);
+        const response = await getTeams();
+        setTeams(response);
       } catch {
       } finally {
         setIsLoading(false);
@@ -42,7 +43,7 @@ export function Dashboard() {
   });
 
   return (
-    <div className="App">
+    <StyledDashboard>
       <MainLayout currentTab={tab} setTab={setTab}>
         <LoadingSkeleton />
         {/* {isLoading ? (
@@ -54,7 +55,7 @@ export function Dashboard() {
           </>
         )} */}
       </MainLayout>
-    </div>
+    </StyledDashboard>
   );
 }
 
