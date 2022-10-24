@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-var _ = require("lodash/core");
 
-// "https://fantasy.espn.com/apis/v3/games/ffl/leagueHistory/49712983?seasonId=2021"
 const espn_s2 =
   "AEC0dX7sZsktqNGB3J6i4u7Cqnc%2B2P6lEGNe3WLBHq0ARvj%2By0eymTZqbLYOwzPtpjwMIJvgxMewDS5OSxB4XodBcMUPgAr1v%2FYI3peACweYvgIPWD2iKBLMIAH8VupRmtihW3lzJCb0sY%2FRXoTizGLd9QA6uzKKAJvcdobsqHJ9tyeVsLCHYO68VlvhdQTbbhAmKMQILGfXQbrbrkJz%2BHctr%2B3iecZ1%2F8yFnHAvcmm9vCfMfWwqWGutrM%2F0Ga8lhmiTRpyS9mrS1cfIJ2t9QmS2";
 
@@ -27,8 +25,6 @@ router.get("/", async (req, res) => {
   } catch (error) {
     return res.json(error);
   }
-
-  return res.json("hey it works");
 });
 
 module.exports = router;
