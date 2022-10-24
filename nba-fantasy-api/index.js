@@ -1,9 +1,7 @@
 const express = require("express");
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const passport = require("passport");
 const promisify = require("es6-promisify");
 const flash = require("connect-flash");
 const expressValidator = require("express-validator");
@@ -16,10 +14,6 @@ var cors = require("cors");
 const app = express();
 
 app.use(cors());
-
-// view engine setup
-app.set("views", path.join(__dirname, "views")); // this is the folder where we keep our pug files
-app.set("view engine", "pug"); // we use the engine pug, mustache or EJS work great too
 
 // serves up static files from the public folder. Anything in public/ will just be served up as the file it is
 app.use(express.static(path.join(__dirname, "public")));
@@ -42,13 +36,8 @@ app.use(
     key: process.env.KEY,
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongoUrl: process.env.DATABASE }),
   })
 );
-
-// Passport JS is what we use to handle our logins
-app.use(passport.initialize());
-app.use(passport.session());
 
 // The flash middleware let's us use req.flash('error', 'Shit!'), which will then pass that message to the next page the user requests
 app.use(flash());
