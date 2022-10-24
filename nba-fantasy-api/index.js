@@ -1,7 +1,6 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const routes = require("./api/index");
-const helpers = require("./helpers");
 var cors = require("cors");
 
 // create our Express app
@@ -28,5 +27,14 @@ app.use((req, res, next) => {
 // After allllll that above middleware, we finally handle our own routes!
 app.use("/", routes);
 
-// done! we export it so we can start the site in start.js
-module.exports = app;
+// import environmental variables from our variables.env file
+require("dotenv").config({ path: "variables.env" });
+
+// READY?! Let's go!
+
+// Start our app!
+const app = require("./index");
+app.set("port", process.env.PORT || 7777);
+const server = app.listen(app.get("port"), () => {
+  console.log(`Express running → PORT ${server.address().port}`);
+});
