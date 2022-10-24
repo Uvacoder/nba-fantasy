@@ -1,5 +1,6 @@
 import { StyledCard } from "./TeamCard.styles";
 import { Avatar, Typography } from "@mui/material";
+import numeral from "numeral";
 
 const statMap: any = {
   0: "PTS",
@@ -51,7 +52,9 @@ export const TeamCard = ({ team }: any) => {
       <Typography>
         {team.location} {team.nickname}
       </Typography>
-      <Typography>Total points - {totalPoints}</Typography>
+      <Typography>
+        Total points - {numeral(totalPoints).format("0,0")}
+      </Typography>
     </StyledCard>
   );
 };
