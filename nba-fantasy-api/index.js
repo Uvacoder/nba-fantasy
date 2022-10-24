@@ -3,7 +3,6 @@ const cookieParser = require("cookie-parser");
 const routes = require("./api/index");
 var cors = require("cors");
 
-// create our Express app
 const app = express();
 
 app.use(cors());

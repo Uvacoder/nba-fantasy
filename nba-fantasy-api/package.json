@@ -7,12 +7,10 @@
     "npm": "8.x"
   },
   "scripts": {
-    "start": "node ./start.js",
+    "start": "node index.js",
     "build": "webpack",
     "watch": "nodemon ./start.js --ignore public/",
-    "dev": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name",
-    "assets": "webpack -w",
-    "blowitallaway": "node ./data/load-sample-data.js --delete"
+    "dev": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name"
   },
   "browserslist": "last 3 versions",
   "dependencies": {
