@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // After allllll that above middleware, we finally handle our own routes!
-app.use("/", routes);
+app.use("/api", routes);
 
 // import environmental variables from our variables.env file
 require("dotenv").config({ path: "variables.env" });
