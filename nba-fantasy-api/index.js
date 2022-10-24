@@ -15,15 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 // populates req.cookies with any cookies that came along with the request
 app.use(cookieParser());
 
-// pass variables to our templates + all requests
-app.use((req, res, next) => {
-  res.locals.h = helpers;
-  res.locals.flashes = req.flash();
-  res.locals.user = req.user || null;
-  res.locals.currentPath = req.path;
-  next();
-});
-
 // After allllll that above middleware, we finally handle our own routes!
 app.use("/", routes);
 
