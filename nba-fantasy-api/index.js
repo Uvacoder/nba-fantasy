@@ -1,9 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const promisify = require("es6-promisify");
-const routes = require("./routes/index");
+const routes = require("./api/index");
 const helpers = require("./helpers");
-const errorHandlers = require("./handlers/errorHandlers");
 var cors = require("cors");
 
 // create our Express app
@@ -27,23 +25,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// promisify some callback based APIs
-app.use((req, res, next) => {
-  req.login = promisify(req.login, req);
-  next();
-});
-
 // After allllll that above middleware, we finally handle our own routes!
 app.use("/", routes);
-
-// Otherwise this was a really bad error we didn't expect! Shoot eh
-if (app.get("env") === "development") {
-  /* Development Error Handler - Prints stack trace */
-  app.use(errorHandlers.developmentErrors);
-}
-
-// production error handler
-app.use(errorHandlers.productionErrors);
 
 // done! we export it so we can start the site in start.js
 module.exports = app;
