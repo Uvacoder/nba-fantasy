@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getTeams } from "../../services";
 import { MainLayout } from "../../layouts";
 import {
-  PointsTotal,
   CategoryTotals,
   LoadingSkeleton,
   PointsTotalTable,
