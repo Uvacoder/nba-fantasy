@@ -95,11 +95,16 @@ interface Data {
   density: number;
 }
 
-export const PointsTotalTable = ({ teams }: any) => {
+export const PointsTotalTable = ({
+  teams,
+  onChangeMatchUpWeek,
+}: {
+  teams: any;
+  onChangeMatchUpWeek: (number: string) => void;
+}) => {
   return (
     <div>
-      {" "}
-      <MatchUpDropdown />
+      <MatchUpDropdown onChangeMatchUpWeek={onChangeMatchUpWeek} />
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer>
           <Table stickyHeader aria-label="sticky table">
@@ -118,7 +123,6 @@ export const PointsTotalTable = ({ teams }: any) => {
             </TableHead>
             <TableBody>
               {teams.map((team: any) => {
-                console.log(team);
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={team.name}>
                     {columns.map((column: any) => {

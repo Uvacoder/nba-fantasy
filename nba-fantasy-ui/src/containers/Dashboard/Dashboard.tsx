@@ -19,7 +19,7 @@ export function Dashboard() {
     const loadData = async () => {
       setIsLoading(true);
       try {
-        const response = await getTeams();
+        const response = await getTeams({});
         setTeams(response);
       } catch {
       } finally {
@@ -28,6 +28,17 @@ export function Dashboard() {
     };
     loadData();
   }, []);
+
+  const onChangeMatchUpWeek = async (scoringPeriodId: string) => {
+    console.log("onChangeMatchUpWeek -", scoringPeriodId);
+    try {
+      const response = await getTeams({ scoringPeriodId });
+      console.log(response);
+      setTeams(response);
+    } catch {
+    } finally {
+    }
+  };
 
   const updatedTeams = teams.map((team: any) => {
     const totalPoints: any = Object.keys(team.valuesByStat).reduce(
@@ -64,7 +75,10 @@ export function Dashboard() {
         ) : (
           <>
             {tab === TabTypes.Points && (
-              <PointsTotalTable teams={updatedTeams} />
+              <PointsTotalTable
+                teams={updatedTeams}
+                onChangeMatchUpWeek={onChangeMatchUpWeek}
+              />
             )}
             {tab === TabTypes.Categories && <CategoryTotals />}
           </>

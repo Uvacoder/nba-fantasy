@@ -6,7 +6,7 @@ import { MatchUpDropdown } from "../MatchUpDropdown";
 export const PointsTotal = ({ teams }: any) => {
   return (
     <>
-      <MatchUpDropdown />
+      {/* <MatchUpDropdown /> */}
       {teams
         .sort((a: any, b: any) => b.totalPoints - a.totalPoints)
         .map((team: any) => {
