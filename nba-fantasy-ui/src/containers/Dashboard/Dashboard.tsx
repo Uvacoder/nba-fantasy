@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { getTeams } from "../../services";
 import { MainLayout } from "../../layouts";
-import { PointsTotal, CategoryTotals, LoadingSkeleton } from "../../components";
+import {
+  PointsTotal,
+  CategoryTotals,
+  LoadingSkeleton,
+  PointsTotalTable,
+} from "../../components";
 import { StyledDashboard } from "./Dashboard.styles";
 import { TabTypes } from "../../types";
 import { statMap, statPointConversion } from "../../utils/helpers";
@@ -25,7 +30,6 @@ export function Dashboard() {
     loadData();
   }, []);
 
-  console.log(teams);
   const updatedTeams = teams.map((team: any) => {
     const totalPoints: any = Object.keys(team.valuesByStat).reduce(
       (acc, value): any => {
@@ -36,9 +40,18 @@ export function Dashboard() {
       0
     );
 
+    const valuesByStat = Object.keys(team.valuesByStat).reduce(
+      (acc, stat): any => {
+        return { ...acc, [statMap[stat]]: team.valuesByStat[stat] };
+      },
+      {}
+    );
+
     return {
-      ...team,
+      name: `${team.location} ${team.nickname}`,
+      logo: team.logo,
       totalPoints,
+      ...valuesByStat,
     };
   });
 
@@ -46,11 +59,14 @@ export function Dashboard() {
     <StyledDashboard>
       <MainLayout currentTab={tab} setTab={setTab}>
         {/* <LoadingSkeleton /> */}
+        {/* <PointsTotalTable teams={updatedTeams} /> */}
         {isLoading ? (
           <LoadingSkeleton />
         ) : (
           <>
-            {tab === TabTypes.Points && <PointsTotal teams={updatedTeams} />}
+            {tab === TabTypes.Points && (
+              <PointsTotalTable teams={updatedTeams} />
+            )}
             {tab === TabTypes.Categories && <CategoryTotals />}
           </>
         )}

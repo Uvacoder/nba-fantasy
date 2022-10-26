@@ -1,10 +1,9 @@
 import { StyledMainLayout, StyledBox } from "./MainLayout.styles";
 import { Container } from "@mui/material";
+import { TabTypes } from "../../types";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import { TabTypes } from "../../types";
 
 interface MainLayoutProps {
   currentTab: TabTypes;
