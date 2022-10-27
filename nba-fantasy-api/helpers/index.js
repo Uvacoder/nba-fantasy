@@ -29,3 +29,26 @@ exports.statPointConversion = {
   fgPercentage: 0,
   ftPercentage: 0,
 };
+
+exports.matchupPeriodIdMap = {
+  1: 7,
+  2: 0,
+  3: 15,
+  4: 22,
+  5: 29,
+  6: 36,
+  7: 43,
+  8: 50,
+  9: 57,
+  10: 64,
+  11: 71,
+  12: 78,
+  13: 85,
+  14: 92,
+  15: 99,
+  16: 106,
+  17: 113,
+  18: 120,
+  19: 134,
+  20: 141,
+};

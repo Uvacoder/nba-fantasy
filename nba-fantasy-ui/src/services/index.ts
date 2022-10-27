@@ -1,1 +1,2 @@
-export * from "./teams";
+export * from "./scores";
+export * from "./league";

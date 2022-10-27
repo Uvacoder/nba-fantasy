@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTeams } from "../../services";
+import { getScores, getCurrentMatchupPeriod } from "../../services";
 import { MainLayout } from "../../layouts";
 import {
   CategoryTotals,
@@ -13,14 +13,19 @@ import { statMap, statPointConversion } from "../../utils/helpers";
 export function Dashboard() {
   const [tab, setTab] = useState<TabTypes>(TabTypes.Points);
   const [isLoading, setIsLoading] = useState(false);
-  const [teams, setTeams] = useState([]);
+  const [scores, setScores] = useState([]);
 
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true);
       try {
-        const response = await getTeams({});
-        setTeams(response);
+        const currentMatchupPeriod = await getCurrentMatchupPeriod();
+
+        const response = await getScores({
+          matchupPeriodId: currentMatchupPeriod,
+        });
+
+        setScores(response);
       } catch {
       } finally {
         setIsLoading(false);
@@ -29,54 +34,29 @@ export function Dashboard() {
     loadData();
   }, []);
 
-  const onChangeMatchUpWeek = async (scoringPeriodId: string) => {
-    console.log("onChangeMatchUpWeek -", scoringPeriodId);
+  console.log(scores);
+  const onChangeMatchUpWeek = async (matchupPeriodId: string) => {
+    console.log("onChangeMatchUpWeek -", matchupPeriodId);
     try {
-      const response = await getTeams({ scoringPeriodId });
+      const response = await getScores({ matchupPeriodId });
       console.log(response);
-      setTeams(response);
+      setScores(response);
     } catch {
     } finally {
     }
   };
 
-  const updatedTeams = teams.map((team: any) => {
-    const totalPoints: any = Object.keys(team.valuesByStat).reduce(
-      (acc, value): any => {
-        return (
-          acc + statPointConversion[statMap[value]] * team.valuesByStat[value]
-        );
-      },
-      0
-    );
-
-    const valuesByStat = Object.keys(team.valuesByStat).reduce(
-      (acc, stat): any => {
-        return { ...acc, [statMap[stat]]: team.valuesByStat[stat] };
-      },
-      {}
-    );
-
-    return {
-      name: `${team.location} ${team.nickname}`,
-      logo: team.logo,
-      totalPoints,
-      ...valuesByStat,
-    };
-  });
-
   return (
     <StyledDashboard>
       <MainLayout currentTab={tab} setTab={setTab}>
         {/* <LoadingSkeleton /> */}
-        {/* <PointsTotalTable teams={updatedTeams} /> */}
         {isLoading ? (
           <LoadingSkeleton />
         ) : (
           <>
             {tab === TabTypes.Points && (
               <PointsTotalTable
-                teams={updatedTeams}
+                scores={scores}
                 onChangeMatchUpWeek={onChangeMatchUpWeek}
               />
             )}

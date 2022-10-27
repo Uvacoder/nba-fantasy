@@ -1,1 +1,1 @@
-export const TEAMS_API_ENDPOINT = "/api";
+export const SCORES_API_ENDPOINT = "/api";

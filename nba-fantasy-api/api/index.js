@@ -7,6 +7,23 @@ const helpers = require("../helpers/index");
 const BASE_URL =
   "https://fantasy.espn.com/apis/v3/games/fba/seasons/2023/segments/0/leagues/653588803";
 
+router.get("/currentMatchupPeriod", async (req, res) => {
+  try {
+    const headers = {
+      Cookie: `SWID="{${process.env.SWID}}"; espn_s2="${process.env.ESPN_S2}"`,
+      withCredentials: true,
+    };
+
+    const response = await axios.get(BASE_URL, {
+      headers,
+    });
+
+    return res.json(response.data.status.currentMatchupPeriod);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
 router.get("/total", async (req, res) => {
   try {
     const headers = {
@@ -59,13 +76,15 @@ router.get("/weeklyMatchUp", async (req, res) => {
       Cookie: `SWID="{${process.env.SWID}}"; espn_s2="${process.env.ESPN_S2}"`,
       withCredentials: true,
       "x-fantasy-filter": JSON.stringify({
-        schedule: { filterMatchupPeriodIds: { value: [1] } },
+        schedule: {
+          filterMatchupPeriodIds: { value: [req.query.matchupPeriodId] },
+        },
       }),
     };
 
     const params = qs.stringify(
       {
-        scoringPeriodId: req.query.scoringPeriodId,
+        scoringPeriodId: helpers.matchupPeriodIdMap[req.query.matchupPeriodId],
         view: [
           "modular",
           "mNav",

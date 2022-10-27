@@ -96,12 +96,13 @@ interface Data {
 }
 
 export const PointsTotalTable = ({
-  teams,
+  scores,
   onChangeMatchUpWeek,
 }: {
-  teams: any;
+  scores: any;
   onChangeMatchUpWeek: (number: string) => void;
 }) => {
+  console.log(scores);
   return (
     <div>
       <MatchUpDropdown onChangeMatchUpWeek={onChangeMatchUpWeek} />
@@ -122,17 +123,22 @@ export const PointsTotalTable = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {teams.map((team: any) => {
+              {/* {scores.map((score: any) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={team.name}>
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={score.name}
+                  >
                     {columns.map((column: any) => {
-                      const value = team[column.id];
+                      const value = score[column.id];
 
                       return (
                         <TableCell key={column.id} align={column.align}>
                           {column.id === "name" ? (
                             <StyledNameCell>
-                              <StyledImage src={team.logo} />
+                              <StyledImage src={score.logo} />
                               {value}
                             </StyledNameCell>
                           ) : column.format && typeof value === "number" ? (
@@ -145,7 +151,7 @@ export const PointsTotalTable = ({
                     })}
                   </TableRow>
                 );
-              })}
+              })} */}
             </TableBody>
           </Table>
         </TableContainer>
