@@ -113,38 +113,40 @@ router.get("/weeklyMatchUp", async (req, res) => {
       {}
     );
 
-    const data = response.data.schedule.reduce((acc, matchup) => {
-      const homeStats = matchup["home"]["cumulativeScore"]["scoreByStat"];
-      const awayStats = matchup["away"]["cumulativeScore"]["scoreByStat"];
-      const calculateTotalPoints = (stats) =>
-        Object.keys(stats).reduce((acc, value) => {
-          return (
-            acc +
-            helpers.statPointConversion[helpers.statMap[value]] *
-              stats[value]["score"]
-          );
-        }, 0);
-      const buildStats = (stats) =>
-        Object.keys(stats).reduce((acc, stat) => {
-          return {
-            ...acc,
-            [helpers.statMap[stat]]: stats[stat]["score"],
-          };
-        }, {});
-      return [
-        ...acc,
-        {
-          ...teams[matchup["away"]["teamId"]],
-          ...buildStats(awayStats),
-          totalPoints: calculateTotalPoints(awayStats),
-        },
-        {
-          ...teams[matchup["home"]["teamId"]],
-          ...buildStats(homeStats),
-          totalPoints: calculateTotalPoints(homeStats),
-        },
-      ];
-    }, []);
+    const data = response.data.schedule
+      .reduce((acc, matchup) => {
+        const homeStats = matchup["home"]["cumulativeScore"]["scoreByStat"];
+        const awayStats = matchup["away"]["cumulativeScore"]["scoreByStat"];
+        const calculateTotalPoints = (stats) =>
+          Object.keys(stats).reduce((acc, value) => {
+            return (
+              acc +
+              helpers.statPointConversion[helpers.statMap[value]] *
+                stats[value]["score"]
+            );
+          }, 0);
+        const buildStats = (stats) =>
+          Object.keys(stats).reduce((acc, stat) => {
+            return {
+              ...acc,
+              [helpers.statMap[stat]]: stats[stat]["score"],
+            };
+          }, {});
+        return [
+          ...acc,
+          {
+            ...teams[matchup["away"]["teamId"]],
+            ...buildStats(awayStats),
+            totalPoints: calculateTotalPoints(awayStats),
+          },
+          {
+            ...teams[matchup["home"]["teamId"]],
+            ...buildStats(homeStats),
+            totalPoints: calculateTotalPoints(homeStats),
+          },
+        ];
+      }, [])
+      .sort((a, b) => b.totalPoints - a.totalPoints);
 
     return res.json(data);
   } catch (error) {

@@ -5,13 +5,14 @@ import { BASE_URL } from "../../config";
 export const getScores = async ({
   matchupPeriodId,
 }: {
-  matchupPeriodId?: string;
+  matchupPeriodId: number;
 }) => {
-  const response = await api.get(
+  const { data } = await api.get(
     `${BASE_URL}${SCORES_API_ENDPOINT}/weeklyMatchUp`,
     {
       params: { matchupPeriodId },
     }
   );
-  return response.data.teams;
+
+  return data;
 };

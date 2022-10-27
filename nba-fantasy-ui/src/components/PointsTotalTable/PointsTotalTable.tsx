@@ -98,14 +98,19 @@ interface Data {
 export const PointsTotalTable = ({
   scores,
   onChangeMatchUpWeek,
+  currentMatchUpWeek,
 }: {
   scores: any;
-  onChangeMatchUpWeek: (number: string) => void;
+  onChangeMatchUpWeek: (number: number) => void;
+  currentMatchUpWeek: number;
 }) => {
   console.log(scores);
   return (
     <div>
-      <MatchUpDropdown onChangeMatchUpWeek={onChangeMatchUpWeek} />
+      <MatchUpDropdown
+        currentMatchUpWeek={currentMatchUpWeek}
+        onChangeMatchUpWeek={onChangeMatchUpWeek}
+      />
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer>
           <Table stickyHeader aria-label="sticky table">
@@ -123,7 +128,7 @@ export const PointsTotalTable = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* {scores.map((score: any) => {
+              {scores.map((score: any) => {
                 return (
                   <TableRow
                     hover
@@ -151,7 +156,7 @@ export const PointsTotalTable = ({
                     })}
                   </TableRow>
                 );
-              })} */}
+              })}
             </TableBody>
           </Table>
         </TableContainer>

@@ -28,12 +28,12 @@ const matchUpOptions = [
   { label: "Matchup 20 (Mar 6 - 12)" },
 ];
 
-export const MatchUpDropdown = ({ onChangeMatchUpWeek }: any) => {
-  const [matchUpWeek, setMatchUpWeek] = useState<string>("");
-
+export const MatchUpDropdown = ({
+  currentMatchUpWeek,
+  onChangeMatchUpWeek,
+}: any) => {
   const handleChange = (event: SelectChangeEvent) => {
     console.log(event.target.value);
-    setMatchUpWeek(event.target.value);
     onChangeMatchUpWeek(event.target.value);
   };
 
@@ -44,7 +44,7 @@ export const MatchUpDropdown = ({ onChangeMatchUpWeek }: any) => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={matchUpWeek}
+          value={currentMatchUpWeek}
           label="Matchups"
           onChange={handleChange}
         >

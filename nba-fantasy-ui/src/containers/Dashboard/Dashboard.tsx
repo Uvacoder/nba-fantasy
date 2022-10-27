@@ -8,19 +8,22 @@ import {
 } from "../../components";
 import { StyledDashboard } from "./Dashboard.styles";
 import { TabTypes } from "../../types";
-import { statMap, statPointConversion } from "../../utils/helpers";
 
 export function Dashboard() {
   const [tab, setTab] = useState<TabTypes>(TabTypes.Points);
   const [isLoading, setIsLoading] = useState(false);
   const [scores, setScores] = useState([]);
+  const [currentMatchUpWeek, setCurrentMatchUpWeek] = useState<number | null>(
+    null
+  );
+  const [isScoresUpdating, setIsScoresUpdating] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true);
       try {
         const currentMatchupPeriod = await getCurrentMatchupPeriod();
-
+        setCurrentMatchUpWeek(currentMatchupPeriod);
         const response = await getScores({
           matchupPeriodId: currentMatchupPeriod,
         });
@@ -34,15 +37,16 @@ export function Dashboard() {
     loadData();
   }, []);
 
-  console.log(scores);
-  const onChangeMatchUpWeek = async (matchupPeriodId: string) => {
-    console.log("onChangeMatchUpWeek -", matchupPeriodId);
+  const onChangeMatchUpWeek = async (matchupPeriodId: number) => {
+    setCurrentMatchUpWeek(matchupPeriodId);
+    setIsScoresUpdating(true);
     try {
       const response = await getScores({ matchupPeriodId });
       console.log(response);
       setScores(response);
     } catch {
     } finally {
+      setIsScoresUpdating(false);
     }
   };
 
@@ -52,11 +56,14 @@ export function Dashboard() {
         {/* <LoadingSkeleton /> */}
         {isLoading ? (
           <LoadingSkeleton />
+        ) : isScoresUpdating ? (
+          <p>loading</p>
         ) : (
           <>
             {tab === TabTypes.Points && (
               <PointsTotalTable
                 scores={scores}
+                currentMatchUpWeek={currentMatchUpWeek || 1}
                 onChangeMatchUpWeek={onChangeMatchUpWeek}
               />
             )}
