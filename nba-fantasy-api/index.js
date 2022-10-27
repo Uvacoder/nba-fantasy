@@ -1,6 +1,6 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const routes = require("./api/index");
+const router = require("./api/index");
 var cors = require("cors");
 
 const app = express();
@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // After allllll that above middleware, we finally handle our own routes!
-app.use("/api", routes);
+app.use("/api", router);
 
 // import environmental variables from our variables.env file
 require("dotenv").config({ path: "variables.env" });
