@@ -71,20 +71,21 @@ router.get("/total", async (req, res) => {
 });
 
 router.get("/weeklyMatchUp", async (req, res) => {
+  const matchupPeriodId = req.query.matchupPeriodId;
   try {
     const headers = {
       Cookie: `SWID="{${process.env.SWID}}"; espn_s2="${process.env.ESPN_S2}"`,
       withCredentials: true,
       "x-fantasy-filter": JSON.stringify({
         schedule: {
-          filterMatchupPeriodIds: { value: [req.query.matchupPeriodId] },
+          filterMatchupPeriodIds: { value: [matchupPeriodId] },
         },
       }),
     };
 
     const params = qs.stringify(
       {
-        scoringPeriodId: helpers.matchupPeriodIdMap[req.query.matchupPeriodId],
+        scoringPeriodId: helpers.matchupPeriodIdMap[matchupPeriodId],
         view: [
           "modular",
           "mNav",
@@ -113,10 +114,17 @@ router.get("/weeklyMatchUp", async (req, res) => {
       {}
     );
 
-    const data = response.data.schedule
+    const hasBeenPlayed =
+      matchupPeriodId <= response.data.status.currentMatchupPeriod;
+
+    const weeklyStats = response.data.schedule
       .reduce((acc, matchup) => {
-        const homeStats = matchup["home"]["cumulativeScore"]["scoreByStat"];
-        const awayStats = matchup["away"]["cumulativeScore"]["scoreByStat"];
+        const homeStats =
+          matchup["home"]["cumulativeScore"]["scoreByStat"] ||
+          helpers.emptyStats;
+        const awayStats =
+          matchup["away"]["cumulativeScore"]["scoreByStat"] ||
+          helpers.emptyStats;
         const calculateTotalPoints = (stats) =>
           Object.keys(stats).reduce((acc, value) => {
             return (
@@ -147,6 +155,16 @@ router.get("/weeklyMatchUp", async (req, res) => {
         ];
       }, [])
       .sort((a, b) => b.totalPoints - a.totalPoints);
+
+    const emptyStats = Object.keys(teams).map((teamId) => {
+      return {
+        ...teams[teamId],
+        ...helpers.emptyStats,
+        totalPoints: 0,
+      };
+    });
+
+    const data = hasBeenPlayed ? weeklyStats : emptyStats;
 
     return res.json(data);
   } catch (error) {

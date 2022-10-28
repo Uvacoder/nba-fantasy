@@ -52,3 +52,19 @@ exports.matchupPeriodIdMap = {
   19: 134,
   20: 141,
 };
+
+exports.emptyStats = {
+  pts: 0,
+  blk: 0,
+  stl: 0,
+  ast: 0,
+  reb: 0,
+  to: 0,
+  fgm: 0,
+  fga: 0,
+  ftm: 0,
+  fta: 0,
+  "3pm": 0,
+  fgPercentage: 0,
+  ftPercentage: 0,
+};
