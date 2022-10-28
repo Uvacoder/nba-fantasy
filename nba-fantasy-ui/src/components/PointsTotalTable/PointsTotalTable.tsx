@@ -10,6 +10,8 @@ import {
   TableRow,
 } from "@mui/material";
 import numeral from "numeral";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
 
 interface Column {
   id:
@@ -99,10 +101,12 @@ export const PointsTotalTable = ({
   scores,
   onChangeMatchUpWeek,
   currentMatchUpWeek,
+  isLoading,
 }: {
   scores: any;
   onChangeMatchUpWeek: (number: number) => void;
   currentMatchUpWeek: number;
+  isLoading: boolean;
 }) => {
   console.log(scores);
   return (
@@ -113,52 +117,88 @@ export const PointsTotalTable = ({
       />
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column: any) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {scores.map((score: any) => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={score.name}
-                  >
-                    {columns.map((column: any) => {
-                      const value = score[column.id];
+          {isLoading ? (
+            <>
+              <TableHead>
+                <TableRow>
+                  {columns.map((column: any) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <Stack spacing={1}>
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+                <Skeleton variant="rectangular" height={40} />
+              </Stack>
+            </>
+          ) : (
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column: any) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
 
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.id === "name" ? (
-                            <StyledNameCell>
-                              <StyledImage src={score.logo} />
-                              {value}
-                            </StyledNameCell>
-                          ) : column.format && typeof value === "number" ? (
-                            column.format(value)
-                          ) : (
-                            value
-                          )}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+              <TableBody>
+                {scores.map((score: any) => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={score.name}
+                    >
+                      {columns.map((column: any) => {
+                        const value = score[column.id];
+
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {column.id === "name" ? (
+                              <StyledNameCell>
+                                <StyledImage src={score.logo} />
+                                {value}
+                              </StyledNameCell>
+                            ) : column.format && typeof value === "number" ? (
+                              column.format(value)
+                            ) : (
+                              value
+                            )}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          )}
         </TableContainer>
       </Paper>
     </div>

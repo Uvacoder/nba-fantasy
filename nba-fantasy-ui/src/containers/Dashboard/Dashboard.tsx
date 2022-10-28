@@ -42,7 +42,6 @@ export function Dashboard() {
     setIsScoresUpdating(true);
     try {
       const response = await getScores({ matchupPeriodId });
-      console.log(response);
       setScores(response);
     } catch {
     } finally {
@@ -53,11 +52,8 @@ export function Dashboard() {
   return (
     <StyledDashboard>
       <MainLayout currentTab={tab} setTab={setTab}>
-        {/* <LoadingSkeleton /> */}
         {isLoading ? (
           <LoadingSkeleton />
-        ) : isScoresUpdating ? (
-          <p>loading</p>
         ) : (
           <>
             {tab === TabTypes.Points && (
@@ -65,6 +61,7 @@ export function Dashboard() {
                 scores={scores}
                 currentMatchUpWeek={currentMatchUpWeek || 1}
                 onChangeMatchUpWeek={onChangeMatchUpWeek}
+                isLoading={isScoresUpdating}
               />
             )}
             {tab === TabTypes.Categories && <CategoryTotals />}
