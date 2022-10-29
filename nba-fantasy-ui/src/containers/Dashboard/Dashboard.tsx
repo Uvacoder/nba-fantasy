@@ -55,8 +55,9 @@ export function Dashboard() {
   return (
     <StyledDashboard>
       <MainLayout currentTab={tab} setTab={setTab}>
+        <LoadingSkeleton />
         {/* <CategoryTable /> */}
-        <Categories />
+        {/* <Categories /> */}
         {/* {isLoading ? (
           <LoadingSkeleton />
         ) : (
