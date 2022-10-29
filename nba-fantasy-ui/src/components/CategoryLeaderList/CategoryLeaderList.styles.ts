@@ -1,9 +1,10 @@
-import styled, { keyframes } from "styled-components";
-import { Avatar, Typography } from "@mui/material";
+import styled from "styled-components";
+import { Typography } from "@mui/material";
 
 export const StyledCategoryLeaderList = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 36px;
 `;
 
 export const StyledHeading = styled(Typography)`

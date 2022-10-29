@@ -8,14 +8,13 @@ import {
   CategoryLeaderList,
 } from "../../components";
 import { StyledCategories } from "./Categories.styles";
-import { categoryLeaders } from "./data";
+import { teams, categoryLeaders } from "./data";
 
 export const Categories = () => {
-  console.log(categoryLeaders);
   return (
     <StyledCategories>
-      <CategoryLeaderList categoryLeaders={categoryLeaders} />
-      {/* <CategoryTotals /> */}
+      {/* <CategoryLeaderList categoryLeaders={categoryLeaders} /> */}
+      <CategoryTable teams={teams} />
     </StyledCategories>
   );
 };

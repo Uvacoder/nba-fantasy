@@ -6,7 +6,7 @@ export const CategoryLeader = ({ profilePhoto, stat, total }: any) => {
   return (
     <StyledCategoryLeader>
       <StyledAvatar src={profilePhoto} />
-      <Typography variant="h5">
+      <Typography variant="h6">
         {stat} ({numeral(total).format("0,0")})
       </Typography>
     </StyledCategoryLeader>

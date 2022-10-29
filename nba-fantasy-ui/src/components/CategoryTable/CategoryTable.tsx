@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { MatchUpDropdown } from "../MatchUpDropdown";
+import { useState, useMemo } from "react";
 import { StyledNameCell, StyledImage } from "./CategoryTable.styles";
 import {
   Paper,
@@ -13,7 +12,7 @@ import {
 import numeral from "numeral";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
-import { teams } from "./teams";
+
 import {
   ColumnDef,
   flexRender,
@@ -22,152 +21,159 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { CategoryLeader } from "../CategoryLeader";
-import dylan from "../../assets/dylan.jpeg";
-import { categoryLeaders } from "./teams";
 
-interface Column {
-  id:
-    | "name"
-    | "fgPercentage"
-    | "ftPercentage"
-    | "3pm"
-    | "reb"
-    | "ast"
-    | "stl"
-    | "blk"
-    | "to"
-    | "pts"
-    | "total";
-  label: string;
-  minWidth?: number;
-  align?: "right";
-  format?: (value: number) => string;
-}
+export const CategoryTable = ({ teams }: any) => {
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [data] = useState(teams);
 
-const columns = [
-  { id: "name", label: "Name", align: "left", minWidth: 170 },
-  { id: "fga", label: "FGA", align: "right" },
-  {
-    id: "fgm",
-    label: "FGM",
-    align: "right",
-  },
-  { id: "fta", label: "FTA", align: "right" },
-  {
-    id: "ftm",
-    label: "FTM",
-    align: "right",
-  },
-  {
-    id: "3pm",
-    label: "3PM",
-    align: "right",
-  },
-  {
-    id: "reb",
-    label: "REB",
-    align: "right",
-  },
-  {
-    id: "ast",
-    label: "AST",
-    align: "right",
-  },
-  {
-    id: "stl",
-    label: "STL",
-    align: "right",
-  },
-  {
-    id: "blk",
-    label: "BLK",
-    align: "right",
-  },
-  {
-    id: "to",
-    label: "TO",
-    align: "right",
-  },
-  {
-    id: "pts",
-    label: "PTS",
-    align: "right",
-  },
-  {
-    id: "totalPoints",
-    label: "TOTAL",
-    align: "right",
-    format: (value: number) => numeral(value).format("0,0"),
-  },
-];
+  const columns = useMemo<ColumnDef<unknown, any>[]>(
+    () => [
+      {
+        header: " ",
+        footer: (props: any) => props.column.id,
+        columns: [
+          {
+            header: "Name",
+            accessorKey: "name",
+            cell: (info: any) => (
+              <StyledNameCell>
+                <StyledImage src={info.row.original.logo} />
+                {info.getValue()}
+              </StyledNameCell>
+            ),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "FGA",
+            accessorKey: "fga",
+            cell: (info: any) => info.getValue(),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "FGM",
+            accessorKey: "fgm",
+            cell: (info: any) => info.getValue(),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "FTA",
+            accessorKey: "fta",
+            cell: (info: any) => info.getValue(),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "FTM",
+            accessorKey: "ftm",
+            cell: (info: any) => info.getValue(),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "3PM",
+            accessorKey: "3pm",
+            cell: (info: any) => info.getValue(),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "REB",
+            accessorKey: "reb",
+            cell: (info: any) => info.getValue(),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "AST",
+            accessorKey: "ast",
+            cell: (info: any) => info.getValue(),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "STL",
+            accessorKey: "stl",
+            cell: (info: any) => info.getValue(),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "BLK",
+            accessorKey: "blk",
+            cell: (info: any) => info.getValue(),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "TO",
+            accessorKey: "to",
+            cell: (info: any) => info.getValue(),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "PTS",
+            accessorKey: "pts",
+            cell: (info: any) => info.getValue(),
+            footer: (props: any) => props.column.id,
+          },
+        ],
+      },
+    ],
+    []
+  );
 
-interface Data {
-  name: string;
-  code: string;
-  population: number;
-  size: number;
-  density: number;
-}
+  const table = useReactTable({
+    data,
+    columns,
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    debugTable: true,
+  });
 
-export const CategoryTable = () => {
-  // console.log(scores);
-  const [sorting, setSorting] = useState([]);
-  // const table = useReactTable({
-  //   columns,
-  //   state: {
-  //     sorting,
-  //   },
-  //   onSortingChange: setSorting,
-  //   getCoreRowModel: getCoreRowModel(),
-  //   getSortedRowModel: getSortedRowModel(),
-  //   debugTable: true,
-
-  // });
-
+  console.log(table.getRowModel().rows);
   return (
     <div>
-      <CategoryLeader profilePhoto={dylan} total={1000} stat="REB" />
-      {/* <Paper sx={{ width: "100%", overflow: "hidden" }}>
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
-              <TableRow>
-                {columns.map((column: any) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableCell key={header.id} colSpan={header.colSpan}>
+                        {header.isPlaceholder ? null : (
+                          <div
+                            {...{
+                              className: header.column.getCanSort()
+                                ? "cursor-pointer select-none"
+                                : "",
+                              onClick: header.column.getToggleSortingHandler(),
+                            }}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                            {{
+                              asc: " 🔼",
+                              desc: " 🔽",
+                            }[header.column.getIsSorted() as string] ?? null}
+                          </div>
+                        )}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              ))}
             </TableHead>
-
             <TableBody>
-              {teams.map((score: any) => {
+              {table.getRowModel().rows.map((row) => {
                 return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={score.name}
-                  >
-                    {columns.map((column: any) => {
-                      const value = score[column.id];
-
+                  <TableRow hover tabIndex={-1} key={row.id}>
+                    {row.getVisibleCells().map((cell) => {
                       return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.id === "name" ? (
-                            <StyledNameCell>
-                              <StyledImage src={score.logo} />
-                              {value}
-                            </StyledNameCell>
-                          ) : column.format && typeof value === "number" ? (
-                            column.format(value)
-                          ) : (
-                            value
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
                           )}
                         </TableCell>
                       );
@@ -178,7 +184,7 @@ export const CategoryTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      </Paper> */}
+      </Paper>
     </div>
   );
 };

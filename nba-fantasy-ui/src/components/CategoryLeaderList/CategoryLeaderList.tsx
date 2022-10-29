@@ -9,7 +9,7 @@ import { profilePhotoMap } from "./helpers";
 export const CategoryLeaderList = ({ categoryLeaders }: any) => {
   return (
     <StyledCategoryLeaderList>
-      <StyledHeading variant="h3" align="center">
+      <StyledHeading variant="h4" align="center">
         Category leaders
       </StyledHeading>
       <StyledList>
