@@ -127,7 +127,6 @@ export const CategoryTable = ({ teams }: any) => {
     debugTable: true,
   });
 
-  console.log(table.getRowModel().rows);
   return (
     <div>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>

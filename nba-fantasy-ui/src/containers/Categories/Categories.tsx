@@ -13,7 +13,7 @@ import { teams, categoryLeaders } from "./data";
 export const Categories = () => {
   return (
     <StyledCategories>
-      {/* <CategoryLeaderList categoryLeaders={categoryLeaders} /> */}
+      <CategoryLeaderList categoryLeaders={categoryLeaders} />
       <CategoryTable teams={teams} />
     </StyledCategories>
   );
