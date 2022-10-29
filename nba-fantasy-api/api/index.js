@@ -3,6 +3,8 @@ const router = express.Router();
 const axios = require("axios");
 const qs = require("qs");
 const helpers = require("../helpers/index");
+const lodash = require("lodash");
+const string = require("../helpers/string");
 
 const BASE_URL =
   "https://fantasy.espn.com/apis/v3/games/fba/seasons/2023/segments/0/leagues/653588803";
@@ -24,33 +26,37 @@ router.get("/currentMatchupPeriod", async (req, res) => {
   }
 });
 
-router.get("/total", async (req, res) => {
+router.get("/categories", async (req, res) => {
   try {
     const headers = {
       Cookie: `SWID="{${process.env.SWID}}"; espn_s2="${process.env.ESPN_S2}"`,
       withCredentials: true,
     };
 
-    const response = await axios.get(
-      `https://fantasy.espn.com/apis/v3/games/fba/seasons/2023/segments/0/leagues/653588803?view=modular&view=mNav&view=mMatchupScore&view=mScoreboard&view=mSettings&view=mTopPerformers&view=mTeam`,
-      { headers, params: { scoringPeriodId: req.query.scoringPeriodId } }
+    const params = qs.stringify(
+      {
+        view: [
+          "modular",
+          "mNav",
+          "mMatchupScore",
+          "mScoreboard",
+          "mSettings",
+          "mTopPerformers",
+          "mTeam",
+        ],
+      },
+      { arrayFormat: "repeat" }
     );
 
-    const formattedData = response.data.teams.map((team) => {
-      const totalPoints = Object.keys(team.valuesByStat).reduce(
-        (acc, value) => {
-          return (
-            acc +
-            helpers.statPointConversion[helpers.statMap[value]] *
-              team.valuesByStat[value]
-          );
-        },
-        0
-      );
+    const response = await axios.get(
+      `https://fantasy.espn.com/apis/v3/games/fba/seasons/2023/segments/0/leagues/653588803?${params}`,
+      { headers }
+    );
 
+    const teams = response.data.teams.map((team) => {
       const valuesByStat = Object.keys(team.valuesByStat).reduce(
         (acc, stat) => {
-          return { ...acc, [statMap[stat]]: team.valuesByStat[stat] };
+          return { ...acc, [helpers.statMap[stat]]: team.valuesByStat[stat] };
         },
         {}
       );
@@ -59,12 +65,41 @@ router.get("/total", async (req, res) => {
         id: team.id,
         name: `${team.location} ${team.nickname}`,
         logo: team.logo,
-        totalPoints,
         ...valuesByStat,
       };
     });
 
-    return res.json(formattedData);
+    const trackedHighestStats = ["pts", "blk", "stl", "ast", "reb", "3pm"];
+    const trackedLowestStats = ["to"];
+
+    const highestTotalStats = trackedHighestStats.map((stat) => {
+      const team = lodash.maxBy(teams, (o) => {
+        return o[stat];
+      });
+      return {
+        stat: string.statLabel[stat],
+        id: team.id,
+        total: team[stat],
+      };
+    });
+
+    const lowestTotalStats = trackedLowestStats.map((stat) => {
+      const team = lodash.minBy(teams, (o) => {
+        return o[stat];
+      });
+      return {
+        stat: string.statLabel[stat],
+        id: team.id,
+        total: team[stat],
+      };
+    });
+
+    const data = {
+      teams: teams,
+      categoryLeaders: [...highestTotalStats, ...lowestTotalStats],
+    };
+
+    return res.json(data);
   } catch (error) {
     return res.json(error);
   }

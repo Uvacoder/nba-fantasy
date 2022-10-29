@@ -5,9 +5,12 @@ import {
   CategoryTotals,
   LoadingSkeleton,
   PointsTotalTable,
+  CategoryTable,
+  CategoryLeaderList,
 } from "../../components";
 import { StyledDashboard } from "./Dashboard.styles";
 import { TabTypes } from "../../types";
+import { Categories } from "../Categories";
 
 export function Dashboard() {
   const [tab, setTab] = useState<TabTypes>(TabTypes.Points);
@@ -52,7 +55,9 @@ export function Dashboard() {
   return (
     <StyledDashboard>
       <MainLayout currentTab={tab} setTab={setTab}>
-        {isLoading ? (
+        {/* <CategoryTable /> */}
+        <Categories />
+        {/* {isLoading ? (
           <LoadingSkeleton />
         ) : (
           <>
@@ -66,7 +71,7 @@ export function Dashboard() {
             )}
             {tab === TabTypes.Categories && <CategoryTotals />}
           </>
-        )}
+        )} */}
       </MainLayout>
     </StyledDashboard>
   );

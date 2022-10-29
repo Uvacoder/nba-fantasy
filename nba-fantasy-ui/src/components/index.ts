@@ -4,3 +4,6 @@ export * from "./PointsTotal";
 export * from "./TeamCard";
 export * from "./MatchUpDropdown";
 export * from "./PointsTotalTable";
+export * from "./CategoryTable";
+export * from "./CategoryLeader";
+export * from "./CategoryLeaderList";
