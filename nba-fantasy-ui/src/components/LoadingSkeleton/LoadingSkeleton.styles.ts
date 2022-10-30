@@ -13,6 +13,10 @@ export const StyledTypography = styled(Typography)`
   }
 `;
 
-export const StyledImage = styled.img`
+export const StyledImageContainer = styled.div`
   max-width: 500px;
+`;
+
+export const StyledImage = styled.img`
+  width: 100%;
 `;

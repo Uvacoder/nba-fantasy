@@ -1,38 +1,22 @@
-import { MatchUpDropdown } from "../MatchUpDropdown";
-import { StyledNameCell, StyledImage } from "./PointsTotalTable.styles";
 import {
-  Paper,
-  Table,
+  StyledPaper,
+  StyledTable,
+  StyledTableHead,
+  StyledNameCell,
+  StyledImage,
+  StyledSkeleton,
+} from "./PointsTotalTable.styles";
+import {
+  Stack,
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
 } from "@mui/material";
 import numeral from "numeral";
-import Skeleton from "@mui/material/Skeleton";
-import Stack from "@mui/material/Stack";
+import { PointsTotalTableProps, Score, Column, ColumnIds } from "./types";
 
-interface Column {
-  id:
-    | "name"
-    | "fgPercentage"
-    | "ftPercentage"
-    | "3pm"
-    | "reb"
-    | "ast"
-    | "stl"
-    | "blk"
-    | "to"
-    | "pts"
-    | "total";
-  label: string;
-  minWidth?: number;
-  align?: "right";
-  format?: (value: number) => string;
-}
-
-const columns = [
+const columns: Column[] = [
   { id: "name", label: "Name", align: "left", minWidth: 170 },
   { id: "fga", label: "FGA", align: "right" },
   {
@@ -89,104 +73,56 @@ const columns = [
   },
 ];
 
-interface Data {
-  name: string;
-  code: string;
-  population: number;
-  size: number;
-  density: number;
-}
-
 export const PointsTotalTable = ({
   scores,
-  onChangeMatchUpWeek,
-  currentMatchUpWeek,
   isLoading,
-}: {
-  scores: any;
-  onChangeMatchUpWeek: (number: number) => void;
-  currentMatchUpWeek: number;
-  isLoading: boolean;
-}) => {
-  console.log(scores);
+}: PointsTotalTableProps) => {
+  const tableHead = () => {
+    return (
+      <StyledTableHead>
+        <TableRow>
+          {columns.map(({ id, align, minWidth, label }: Column) => (
+            <TableCell key={id} align={align} style={{ minWidth: minWidth }}>
+              {label}
+            </TableCell>
+          ))}
+        </TableRow>
+      </StyledTableHead>
+    );
+  };
+
   return (
     <div>
-      <MatchUpDropdown
-        currentMatchUpWeek={currentMatchUpWeek}
-        onChangeMatchUpWeek={onChangeMatchUpWeek}
-      />
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+      <StyledPaper>
         <TableContainer>
           {isLoading ? (
             <>
-              <TableHead>
-                <TableRow>
-                  {columns.map((column: any) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <Stack spacing={1}>
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
-                <Skeleton variant="rectangular" height={40} />
+              {tableHead()}
+              <Stack>
+                {Array.from(Array(10).keys()).map(() => (
+                  <StyledSkeleton variant="rectangular" height={74} />
+                ))}
               </Stack>
             </>
           ) : (
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column: any) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-
+            <StyledTable stickyHeader aria-label="sticky table">
+              {tableHead()}
               <TableBody>
-                {scores.map((score: any) => {
+                {scores.map((score: Score) => {
                   return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={score.name}
-                    >
-                      {columns.map((column: any) => {
-                        const value = score[column.id];
+                    <TableRow hover tabIndex={-1} key={score.name}>
+                      {columns.map(({ id, align, format }: Column) => {
+                        const value = score[id as ColumnIds];
 
                         return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.id === "name" ? (
+                          <TableCell key={id} align={align}>
+                            {id === "name" ? (
                               <StyledNameCell>
                                 <StyledImage src={score.logo} />
                                 {value}
                               </StyledNameCell>
-                            ) : column.format && typeof value === "number" ? (
-                              column.format(value)
+                            ) : format && typeof value === "number" ? (
+                              format(value)
                             ) : (
                               value
                             )}
@@ -197,10 +133,10 @@ export const PointsTotalTable = ({
                   );
                 })}
               </TableBody>
-            </Table>
+            </StyledTable>
           )}
         </TableContainer>
-      </Paper>
+      </StyledPaper>
     </div>
   );
 };

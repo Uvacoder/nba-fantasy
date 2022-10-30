@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { StyledMatchUpDropdown } from "./MatchUpDropdown.styles";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
+import { InputLabel, MenuItem, FormControl } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { MatchUpDropdownProps } from "./types";
 
 const matchUpOptions = [
   { label: "Matchup 1 (Oct 17 - 23)" },
@@ -31,10 +29,9 @@ const matchUpOptions = [
 export const MatchUpDropdown = ({
   currentMatchUpWeek,
   onChangeMatchUpWeek,
-}: any) => {
+}: MatchUpDropdownProps) => {
   const handleChange = (event: SelectChangeEvent) => {
-    console.log(event.target.value);
-    onChangeMatchUpWeek(event.target.value);
+    onChangeMatchUpWeek(parseInt(event.target.value));
   };
 
   return (
@@ -44,12 +41,14 @@ export const MatchUpDropdown = ({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={currentMatchUpWeek}
+          value={currentMatchUpWeek.toString()}
           label="Matchups"
           onChange={handleChange}
         >
           {matchUpOptions.map(({ label }, index) => (
-            <MenuItem value={index + 1}>{label}</MenuItem>
+            <MenuItem key={index} value={index + 1}>
+              {label}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

@@ -1,7 +1,8 @@
 import {
   StyledLoadingSkeleton,
-  StyledImage,
   StyledTypography,
+  StyledImageContainer,
+  StyledImage,
 } from "./LoadingSkeleton.styles";
 import { Typography } from "@mui/material";
 import loading from "../../assets/loading-dribble.gif";
@@ -16,7 +17,9 @@ export const LoadingSkeleton = () => {
       <Typography align="center" mb={4}>
         {funFacts[randomInteger({ max: funFacts.length })]}
       </Typography>
-      <StyledImage src={loading} alt="" />
+      <StyledImageContainer>
+        <StyledImage src={loading} alt="" />
+      </StyledImageContainer>
     </StyledLoadingSkeleton>
   );
 };
