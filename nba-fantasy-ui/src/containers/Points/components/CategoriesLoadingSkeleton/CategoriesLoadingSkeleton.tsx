@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   StyledLoadingSkeleton,
   StyledTypography,
@@ -8,7 +9,7 @@ import { Typography } from "@mui/material";
 import loading from "../../../../assets/loading-dribble.gif";
 import { funFacts, randomInteger } from "../../../../utils";
 
-export const CategoriesLoadingSkeleton = () => {
+export const CategoriesLoadingSkeleton = memo(() => {
   return (
     <StyledLoadingSkeleton>
       <StyledTypography align="center" mb={1}>
@@ -22,6 +23,4 @@ export const CategoriesLoadingSkeleton = () => {
       </StyledImageContainer>
     </StyledLoadingSkeleton>
   );
-};
-
-export default CategoriesLoadingSkeleton;
+});
