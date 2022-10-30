@@ -5,7 +5,7 @@ import {
   StyledImage,
 } from "./CategoriesLoadingSkeleton.styles";
 import { Typography } from "@mui/material";
-import loading from "../../assets/loading-dribble.gif";
+import loading from "../../../../assets/loading-dribble.gif";
 import { funFacts, randomInteger } from "../../../../utils";
 
 export const CategoriesLoadingSkeleton = () => {
