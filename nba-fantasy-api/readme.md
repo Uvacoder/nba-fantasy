@@ -10,18 +10,10 @@ To load sample data, run the following command in your terminal:
 npm run sample
 ```
 
-If you have previously loaded in this data, you can wipe your database 100% clean with:
+### `npm run dev`
 
-```bash
-npm run blowitallaway
-```
+Runs the app in the development mode.\
+Open [http://localhost:7777](http://localhost:7777) to view it in the browser.
 
-That will populate 16 stores with 3 authors and 41 reviews. The logins for the authors are as follows:
-
-|Name|Email (login)|Password|
-|---|---|---|
-|Wes Bos|wes@example.com|wes|
-|Debbie Downer|debbie@example.com|debbie|
-|Beau|beau@example.com|beau|
-
-
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
