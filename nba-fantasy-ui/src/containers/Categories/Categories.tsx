@@ -31,6 +31,7 @@ export const Categories = () => {
       <StyledHeading variant="h5" align="center">
         Category leaders
       </StyledHeading>
+
       {isLoading ? (
         <CategoriesLoadingSkeleton />
       ) : (

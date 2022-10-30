@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Typography } from "@mui/material";
 
 export const StyledCategoryLeaderList = styled.div`
   display: flex;

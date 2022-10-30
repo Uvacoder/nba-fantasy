@@ -1,109 +1,24 @@
 import {
   StyledPaper,
   StyledTable,
-  StyledTableHead,
   StyledNameCell,
   StyledImage,
-  StyledSkeleton,
 } from "./PointsTable.styles";
-import {
-  Stack,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-} from "@mui/material";
-import numeral from "numeral";
+import { TableBody, TableCell, TableContainer, TableRow } from "@mui/material";
 import { PointsTotalTableProps, Score, Column, ColumnIds } from "./types";
-
-const columns: Column[] = [
-  { id: "name", label: "Name", align: "left", minWidth: 170 },
-  { id: "fga", label: "FGA", align: "right" },
-  {
-    id: "fgm",
-    label: "FGM",
-    align: "right",
-  },
-  { id: "fta", label: "FTA", align: "right" },
-  {
-    id: "ftm",
-    label: "FTM",
-    align: "right",
-  },
-  {
-    id: "3pm",
-    label: "3PM",
-    align: "right",
-  },
-  {
-    id: "reb",
-    label: "REB",
-    align: "right",
-  },
-  {
-    id: "ast",
-    label: "AST",
-    align: "right",
-  },
-  {
-    id: "stl",
-    label: "STL",
-    align: "right",
-  },
-  {
-    id: "blk",
-    label: "BLK",
-    align: "right",
-  },
-  {
-    id: "to",
-    label: "TO",
-    align: "right",
-  },
-  {
-    id: "pts",
-    label: "PTS",
-    align: "right",
-  },
-  {
-    id: "totalPoints",
-    label: "TOTAL",
-    align: "right",
-    format: (value: number) => numeral(value).format("0,0"),
-  },
-];
+import { TableHead, TableLoadingSkeleton } from "../../../../components";
+import { columns } from "../../../../components/Table/helpers";
 
 export const PointsTable = ({ scores, isLoading }: PointsTotalTableProps) => {
-  const tableHead = () => {
-    return (
-      <StyledTableHead>
-        <TableRow>
-          {columns.map(({ id, align, minWidth, label }: Column) => (
-            <TableCell key={id} align={align} style={{ minWidth: minWidth }}>
-              {label}
-            </TableCell>
-          ))}
-        </TableRow>
-      </StyledTableHead>
-    );
-  };
-
   return (
     <div>
       <StyledPaper>
         <TableContainer>
           {isLoading ? (
-            <>
-              {tableHead()}
-              <Stack>
-                {Array.from(Array(10).keys()).map(() => (
-                  <StyledSkeleton variant="rectangular" height={74} />
-                ))}
-              </Stack>
-            </>
+            <TableLoadingSkeleton />
           ) : (
             <StyledTable stickyHeader aria-label="sticky table">
-              {tableHead()}
+              <TableHead />
               <TableBody>
                 {scores.map((score: Score) => {
                   return (
