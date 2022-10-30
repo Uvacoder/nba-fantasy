@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { Avatar, Card, CardContent, Divider, Typography } from "@mui/material";
+import { Avatar } from "@mui/material";
 
 const wiggle = keyframes`
 0%, 7% {
@@ -29,13 +29,14 @@ export const StyledCategoryLeader = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 12px;
   animation: ${wiggle} 4s linear infinite;
 `;
 
 export const StyledAvatar = styled(Avatar)`
   && {
-    height: 125px;
-    width: 125px;
-    margin-bottom: 16px;
+    height: 100px;
+    width: 100px;
+    margin-bottom: 12px;
   }
 `;

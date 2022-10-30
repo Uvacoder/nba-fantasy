@@ -9,7 +9,7 @@ import Joel from "../../assets/joel.jpeg";
 import Paul from "../../assets/paul.jpeg";
 import Shehan from "../../assets/shehan.jpeg";
 
-export const profilePhotoMap: { [key: number]: any } = {
+export const profilePhotoMap: { [key: string]: any } = {
   1: Dylan,
   2: Tom,
   3: Corey,

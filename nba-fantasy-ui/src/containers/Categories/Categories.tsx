@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getScores, getCurrentMatchupPeriod } from "../../services";
 import {
-  CategoryTotals,
   LoadingSkeleton,
   PointsTotalTable,
   CategoryTable,

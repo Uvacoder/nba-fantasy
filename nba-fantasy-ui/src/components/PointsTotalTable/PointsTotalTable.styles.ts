@@ -1,19 +1,10 @@
 import styled from "styled-components";
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Skeleton,
-} from "@mui/material";
+import { Paper, Table, TableHead, Skeleton } from "@mui/material";
 
 export const StyledPaper = styled(Paper)`
   && {
-    width: "100%";
-    overflow: "hidden";
+    width: 100%;
+    overflow: hidden;
   }
 `;
 

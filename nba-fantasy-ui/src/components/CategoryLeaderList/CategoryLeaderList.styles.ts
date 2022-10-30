@@ -10,7 +10,7 @@ export const StyledCategoryLeaderList = styled.div`
 export const StyledHeading = styled(Typography)`
   && {
     font-weight: 600;
-    margin-bottom: 36px;
+    margin-bottom: 16px;
   }
 `;
 

@@ -1,17 +1,14 @@
-import { useState, useMemo } from "react";
-import { StyledNameCell, StyledImage } from "./CategoryTable.styles";
+import { useState, useMemo, useRef, useEffect } from "react";
 import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
+  StyledPaper,
+  StyledTable,
+  StyledNameCell,
+  StyledImage,
+  StyledTableHead,
+} from "./CategoryTable.styles";
+import { TableContainer, TableCell, TableBody, TableRow } from "@mui/material";
 import numeral from "numeral";
-import Skeleton from "@mui/material/Skeleton";
-import Stack from "@mui/material/Stack";
+import autoAnimate from "@formkit/auto-animate";
 
 import {
   ColumnDef,
@@ -25,6 +22,11 @@ import {
 export const CategoryTable = ({ teams }: any) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [data] = useState(teams);
+  const parent = useRef(null);
+
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
 
   const columns = useMemo<ColumnDef<unknown, any>[]>(
     () => [
@@ -46,67 +48,67 @@ export const CategoryTable = ({ teams }: any) => {
           {
             header: "FGA",
             accessorKey: "fga",
-            cell: (info: any) => info.getValue(),
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
             footer: (props: any) => props.column.id,
           },
           {
             header: "FGM",
             accessorKey: "fgm",
-            cell: (info: any) => info.getValue(),
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
             footer: (props: any) => props.column.id,
           },
           {
             header: "FTA",
             accessorKey: "fta",
-            cell: (info: any) => info.getValue(),
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
             footer: (props: any) => props.column.id,
           },
           {
             header: "FTM",
             accessorKey: "ftm",
-            cell: (info: any) => info.getValue(),
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
             footer: (props: any) => props.column.id,
           },
           {
             header: "3PM",
             accessorKey: "3pm",
-            cell: (info: any) => info.getValue(),
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
             footer: (props: any) => props.column.id,
           },
           {
             header: "REB",
             accessorKey: "reb",
-            cell: (info: any) => info.getValue(),
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
             footer: (props: any) => props.column.id,
           },
           {
             header: "AST",
             accessorKey: "ast",
-            cell: (info: any) => info.getValue(),
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
             footer: (props: any) => props.column.id,
           },
           {
             header: "STL",
             accessorKey: "stl",
-            cell: (info: any) => info.getValue(),
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
             footer: (props: any) => props.column.id,
           },
           {
             header: "BLK",
             accessorKey: "blk",
-            cell: (info: any) => info.getValue(),
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
             footer: (props: any) => props.column.id,
           },
           {
             header: "TO",
             accessorKey: "to",
-            cell: (info: any) => info.getValue(),
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
             footer: (props: any) => props.column.id,
           },
           {
             header: "PTS",
             accessorKey: "pts",
-            cell: (info: any) => info.getValue(),
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
             footer: (props: any) => props.column.id,
           },
         ],
@@ -129,10 +131,10 @@ export const CategoryTable = ({ teams }: any) => {
 
   return (
     <div>
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+      <StyledPaper>
         <TableContainer>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
+          <StyledTable stickyHeader aria-label="sticky table">
+            <StyledTableHead>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
@@ -152,8 +154,8 @@ export const CategoryTable = ({ teams }: any) => {
                               header.getContext()
                             )}
                             {{
-                              asc: " 🔼",
-                              desc: " 🔽",
+                              asc: " ☝️",
+                              desc: " 👇",
                             }[header.column.getIsSorted() as string] ?? null}
                           </div>
                         )}
@@ -162,8 +164,8 @@ export const CategoryTable = ({ teams }: any) => {
                   })}
                 </TableRow>
               ))}
-            </TableHead>
-            <TableBody>
+            </StyledTableHead>
+            <TableBody ref={parent}>
               {table.getRowModel().rows.map((row) => {
                 return (
                   <TableRow hover tabIndex={-1} key={row.id}>
@@ -181,9 +183,9 @@ export const CategoryTable = ({ teams }: any) => {
                 );
               })}
             </TableBody>
-          </Table>
+          </StyledTable>
         </TableContainer>
-      </Paper>
+      </StyledPaper>
     </div>
   );
 };

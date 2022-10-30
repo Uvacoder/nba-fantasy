@@ -181,7 +181,7 @@ export const teams = [
   },
 ];
 
-export const categoryLeaders = [
+export const categoryLeaders: any = [
   {
     stat: "Points",
     id: 8,

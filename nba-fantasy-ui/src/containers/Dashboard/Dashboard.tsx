@@ -1,14 +1,6 @@
-import { useEffect, useState } from "react";
-import { getScores, getCurrentMatchupPeriod } from "../../services";
+import { useState } from "react";
 import { MainLayout } from "../../layouts";
 import { Categories, Points } from "../index";
-import {
-  CategoryTotals,
-  LoadingSkeleton,
-  PointsTotalTable,
-  CategoryTable,
-  CategoryLeaderList,
-} from "../../components";
 import { StyledDashboard } from "./Dashboard.styles";
 import { TabTypes } from "../../types";
 
@@ -19,8 +11,9 @@ export function Dashboard() {
     <StyledDashboard>
       <MainLayout currentTab={tab} setTab={setTab}>
         <>
-          {tab === TabTypes.Points && <Points />}
-          {tab === TabTypes.Categories && <CategoryTotals />}
+          <Categories />
+          {/* {tab === TabTypes.Points && <Points />}
+          {tab === TabTypes.Categories && <Categories />} */}
         </>
       </MainLayout>
     </StyledDashboard>

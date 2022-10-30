@@ -4,20 +4,23 @@ import {
   StyledHeading,
   StyledList,
 } from "./CategoryLeaderList.styles";
+import { CategoryLeaderListProps, Category } from "./types";
 import { profilePhotoMap } from "./helpers";
 
-export const CategoryLeaderList = ({ categoryLeaders }: any) => {
+export const CategoryLeaderList = ({
+  categoryLeaders,
+}: CategoryLeaderListProps) => {
   return (
     <StyledCategoryLeaderList>
-      <StyledHeading variant="h4" align="center">
+      <StyledHeading variant="h5" align="center">
         Category leaders
       </StyledHeading>
       <StyledList>
-        {categoryLeaders.map((category: any) => (
+        {categoryLeaders.map(({ id, stat, total }: Category) => (
           <CategoryLeader
-            profilePhoto={profilePhotoMap[category.id]}
-            stat={category.stat}
-            total={category.total}
+            profilePhoto={profilePhotoMap[id]}
+            stat={stat}
+            total={total}
           />
         ))}
       </StyledList>
