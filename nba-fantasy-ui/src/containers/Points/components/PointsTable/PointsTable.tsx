@@ -5,7 +5,7 @@ import {
   StyledNameCell,
   StyledImage,
   StyledSkeleton,
-} from "./PointsTotalTable.styles";
+} from "./PointsTable.styles";
 import {
   Stack,
   TableBody,
@@ -73,10 +73,7 @@ const columns: Column[] = [
   },
 ];
 
-export const PointsTotalTable = ({
-  scores,
-  isLoading,
-}: PointsTotalTableProps) => {
+export const PointsTable = ({ scores, isLoading }: PointsTotalTableProps) => {
   const tableHead = () => {
     return (
       <StyledTableHead>

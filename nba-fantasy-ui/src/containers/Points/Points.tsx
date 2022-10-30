@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { getScores, getCurrentMatchupPeriod } from "../../services";
 import {
-  LoadingSkeleton,
-  PointsTotalTable,
+  CategoriesLoadingSkeleton,
+  PointsTable,
   MatchUpDropdown,
-} from "../../components";
+} from "./components";
 import { data } from "./data";
 
 export const Points = () => {
@@ -47,14 +47,14 @@ export const Points = () => {
   return (
     <>
       {isLoading ? (
-        <LoadingSkeleton />
+        <CategoriesLoadingSkeleton />
       ) : (
         <>
           <MatchUpDropdown
             currentMatchUpWeek={currentMatchUpWeek}
             onChangeMatchUpWeek={onChangeMatchUpWeek}
           />
-          <PointsTotalTable scores={data} isLoading={false} />
+          <PointsTable scores={data} isLoading={false} />
         </>
       )}
     </>

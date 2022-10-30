@@ -3,12 +3,12 @@ import {
   StyledTypography,
   StyledImageContainer,
   StyledImage,
-} from "./LoadingSkeleton.styles";
+} from "./CategoriesLoadingSkeleton.styles";
 import { Typography } from "@mui/material";
 import loading from "../../assets/loading-dribble.gif";
-import { funFacts, randomInteger } from "../../utils";
+import { funFacts, randomInteger } from "../../../../utils";
 
-export const LoadingSkeleton = () => {
+export const CategoriesLoadingSkeleton = () => {
   return (
     <StyledLoadingSkeleton>
       <StyledTypography align="center" mb={1}>
@@ -24,4 +24,4 @@ export const LoadingSkeleton = () => {
   );
 };
 
-export default LoadingSkeleton;
+export default CategoriesLoadingSkeleton;

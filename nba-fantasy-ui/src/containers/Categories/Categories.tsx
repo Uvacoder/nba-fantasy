@@ -8,15 +8,12 @@ import {
 import { StyledCategories, StyledHeading } from "./Categories.styles";
 
 export const Categories = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState<any>([]);
 
-  console.log("Categories");
-
   useEffect(() => {
-    console.log("useEffect");
+    setIsLoading(true);
     const loadData = async () => {
-      setIsLoading(true);
       try {
         const response = await getCategories();
         console.log(response);
@@ -29,7 +26,6 @@ export const Categories = () => {
     loadData();
   }, []);
 
-  // console.log(categories);
   return (
     <StyledCategories>
       <StyledHeading variant="h5" align="center">

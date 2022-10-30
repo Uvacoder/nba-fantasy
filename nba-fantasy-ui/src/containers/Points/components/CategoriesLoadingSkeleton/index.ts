@@ -1,0 +1,1 @@
+export { CategoriesLoadingSkeleton } from "./CategoriesLoadingSkeleton";
