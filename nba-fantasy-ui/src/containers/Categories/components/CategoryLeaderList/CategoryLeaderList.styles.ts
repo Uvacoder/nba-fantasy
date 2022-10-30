@@ -7,13 +7,6 @@ export const StyledCategoryLeaderList = styled.div`
   margin-bottom: 36px;
 `;
 
-export const StyledHeading = styled(Typography)`
-  && {
-    font-weight: 600;
-    margin-bottom: 16px;
-  }
-`;
-
 export const StyledList = styled.div`
   display: flex;
   flex-wrap: wrap;

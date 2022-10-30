@@ -1,7 +1,6 @@
 import { CategoryLeader } from "../CategoryLeader";
 import {
   StyledCategoryLeaderList,
-  StyledHeading,
   StyledList,
 } from "./CategoryLeaderList.styles";
 import { CategoryLeaderListProps, Category } from "./types";
@@ -12,12 +11,10 @@ export const CategoryLeaderList = ({
 }: CategoryLeaderListProps) => {
   return (
     <StyledCategoryLeaderList>
-      <StyledHeading variant="h5" align="center">
-        Category leaders
-      </StyledHeading>
       <StyledList>
         {categoryLeaders.map(({ id, stat, total }: Category) => (
           <CategoryLeader
+            key={stat}
             profilePhoto={profilePhotoMap[id]}
             stat={stat}
             total={total}
