@@ -11,9 +11,8 @@ export function Dashboard() {
     <StyledDashboard>
       <MainLayout currentTab={tab} setTab={setTab}>
         <>
-          <Categories />
-          {/* {tab === TabTypes.Points && <Points />}
-          {tab === TabTypes.Categories && <Categories />} */}
+          {tab === TabTypes.Points && <Points />}
+          {tab === TabTypes.Categories && <Categories />}
         </>
       </MainLayout>
     </StyledDashboard>

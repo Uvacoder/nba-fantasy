@@ -5,7 +5,6 @@ import {
   PointsTable,
   MatchUpDropdown,
 } from "./components";
-import { data } from "./data";
 
 export const Points = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -54,7 +53,7 @@ export const Points = () => {
             currentMatchUpWeek={currentMatchUpWeek}
             onChangeMatchUpWeek={onChangeMatchUpWeek}
           />
-          <PointsTable scores={data} isLoading={false} />
+          <PointsTable scores={scores} isLoading={isScoresUpdating} />
         </>
       )}
     </>
