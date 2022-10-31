@@ -42,5 +42,3 @@ export const Categories = () => {
     </StyledCategories>
   );
 };
-
-export default Categories;

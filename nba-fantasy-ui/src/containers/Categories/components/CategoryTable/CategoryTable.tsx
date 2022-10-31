@@ -45,27 +45,15 @@ export const CategoryTable = ({ teams }: any) => {
             footer: (props: any) => props.column.id,
           },
           {
-            header: "FGA",
-            accessorKey: "fga",
-            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            header: "FG%",
+            accessorKey: "fgPercentage",
+            cell: (info: any) => numeral(info.getValue()).format("0.00%"),
             footer: (props: any) => props.column.id,
           },
           {
-            header: "FGM",
-            accessorKey: "fgm",
-            cell: (info: any) => numeral(info.getValue()).format("0,0"),
-            footer: (props: any) => props.column.id,
-          },
-          {
-            header: "FTA",
-            accessorKey: "fta",
-            cell: (info: any) => numeral(info.getValue()).format("0,0"),
-            footer: (props: any) => props.column.id,
-          },
-          {
-            header: "FTM",
-            accessorKey: "ftm",
-            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            header: "FT%",
+            accessorKey: "ftPercentage",
+            cell: (info: any) => numeral(info.getValue()).format("0.00%"),
             footer: (props: any) => props.column.id,
           },
           {

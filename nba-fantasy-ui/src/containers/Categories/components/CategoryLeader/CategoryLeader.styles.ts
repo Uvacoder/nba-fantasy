@@ -31,6 +31,8 @@ export const StyledCategoryLeader = styled.div`
   align-items: center;
   margin-bottom: 12px;
   animation: ${wiggle} 4s linear infinite;
+  max-width: 120px;
+  text-align: center;
 `;
 
 export const StyledAvatar = styled(Avatar)`

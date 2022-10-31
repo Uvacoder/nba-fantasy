@@ -21,8 +21,8 @@ export const TableLoadingSkeleton = () => (
   <>
     <TableHead />
     <Stack>
-      {Array.from(Array(10).keys()).map(() => (
-        <StyledSkeleton variant="rectangular" height={74} />
+      {Array.from(Array(10).keys()).map((x) => (
+        <StyledSkeleton variant="rectangular" height={74} key={x} />
       ))}
     </Stack>
   </>

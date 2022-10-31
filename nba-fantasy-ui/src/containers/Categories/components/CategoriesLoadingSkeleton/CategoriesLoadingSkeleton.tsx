@@ -11,7 +11,7 @@ export const CategoriesLoadingSkeleton = () => {
   return (
     <StyledCategoriesLoadingSkeleton>
       <StyledCategoryLeaders>
-        {Array.from(Array(7).keys()).map((key) => (
+        {Array.from(Array(9).keys()).map((key) => (
           <StyledCard key={key}>
             <StyledAvatarSkelton variant="circular" width={100} height={100} />
             <Skeleton variant="rectangular" width={90} height={20} />

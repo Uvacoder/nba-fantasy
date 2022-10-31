@@ -12,7 +12,11 @@ export const CategoryLeader = ({
     <StyledCategoryLeader>
       <StyledAvatar src={profilePhoto} />
       <Typography mb={1.5}>
-        {stat} ({numeral(total).format("0,0")})
+        {stat} (
+        {stat.includes("percentage")
+          ? numeral(total).format("0.00%")
+          : numeral(total).format("0,0")}
+        )
       </Typography>
     </StyledCategoryLeader>
   );

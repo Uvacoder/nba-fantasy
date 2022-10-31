@@ -69,7 +69,16 @@ router.get("/categories", async (req, res) => {
       };
     });
 
-    const trackedHighestStats = ["pts", "blk", "stl", "ast", "reb", "3pm"];
+    const trackedHighestStats = [
+      "pts",
+      "blk",
+      "stl",
+      "ast",
+      "reb",
+      "3pm",
+      "fgPercentage",
+      "ftPercentage",
+    ];
     const trackedLowestStats = ["to"];
 
     const highestTotalStats = trackedHighestStats.map((stat) => {

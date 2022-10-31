@@ -20,6 +20,7 @@ export const StyledCard = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 12px;
+  max-width: 120px;
 `;
 
 export const StyledAvatarSkelton = styled(Skeleton)`
