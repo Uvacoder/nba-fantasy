@@ -1,15 +1,145 @@
+import { useState, useMemo, useRef, useEffect } from "react";
 import {
   StyledPaper,
   StyledTable,
+  StyledTableHead,
   StyledNameCell,
   StyledImage,
 } from "./PointsTable.styles";
 import { TableBody, TableCell, TableContainer, TableRow } from "@mui/material";
-import { PointsTotalTableProps, Score, Column, ColumnIds } from "./types";
-import { TableHead, TableLoadingSkeleton } from "../../../../components";
-import { columns } from "../../../../components/Table/helpers";
+import { PointsTotalTableProps } from "./types";
+import { TableLoadingSkeleton } from "../../../../components";
+import autoAnimate from "@formkit/auto-animate";
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  SortingState,
+  useReactTable,
+} from "@tanstack/react-table";
+import numeral from "numeral";
 
 export const PointsTable = ({ scores, isLoading }: PointsTotalTableProps) => {
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [data, setData] = useState(scores);
+  const parent = useRef(null);
+
+  useEffect(() => {
+    setData(scores);
+  }, [scores]);
+
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
+
+  const columns = useMemo<ColumnDef<unknown, any>[]>(
+    () => [
+      {
+        header: " ",
+        footer: (props: any) => props.column.id,
+        columns: [
+          {
+            header: "Name",
+            accessorKey: "name",
+            cell: (info: any) => (
+              <StyledNameCell>
+                <StyledImage src={info.row.original.logo} />
+                {info.getValue()}
+              </StyledNameCell>
+            ),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "TOTAL",
+            accessorKey: "totalPoints",
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "FGA",
+            accessorKey: "fga",
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "FGM",
+            accessorKey: "fgm",
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "FTA",
+            accessorKey: "fta",
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "FTM",
+            accessorKey: "ftm",
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "3PM",
+            accessorKey: "3pm",
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "REB",
+            accessorKey: "reb",
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "AST",
+            accessorKey: "ast",
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "STL",
+            accessorKey: "stl",
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "BLK",
+            accessorKey: "blk",
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "TO",
+            accessorKey: "to",
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            footer: (props: any) => props.column.id,
+          },
+          {
+            header: "PTS",
+            accessorKey: "pts",
+            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            footer: (props: any) => props.column.id,
+          },
+        ],
+      },
+    ],
+    []
+  );
+
+  const table = useReactTable({
+    data,
+    columns,
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    debugTable: true,
+  });
+
   return (
     <div>
       <StyledPaper>
@@ -18,25 +148,48 @@ export const PointsTable = ({ scores, isLoading }: PointsTotalTableProps) => {
             <TableLoadingSkeleton />
           ) : (
             <StyledTable stickyHeader aria-label="sticky table">
-              <TableHead />
-              <TableBody>
-                {scores.map((score: Score) => {
+              <StyledTableHead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
+                      return (
+                        <TableCell key={header.id} colSpan={header.colSpan}>
+                          {header.isPlaceholder ? null : (
+                            <div
+                              {...{
+                                className: header.column.getCanSort()
+                                  ? "cursor-pointer select-none"
+                                  : "",
+                                onClick:
+                                  header.column.getToggleSortingHandler(),
+                              }}
+                            >
+                              {flexRender(
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
+                              {{
+                                asc: " ☝️",
+                                desc: " 👇",
+                              }[header.column.getIsSorted() as string] ?? null}
+                            </div>
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                ))}
+              </StyledTableHead>
+              <TableBody ref={parent}>
+                {table.getRowModel().rows.map((row) => {
                   return (
-                    <TableRow hover tabIndex={-1} key={score.name}>
-                      {columns.map(({ id, align, format }: Column) => {
-                        const value = score[id as ColumnIds];
-
+                    <TableRow hover tabIndex={-1} key={row.id}>
+                      {row.getVisibleCells().map((cell) => {
                         return (
-                          <TableCell key={id} align={align}>
-                            {id === "name" ? (
-                              <StyledNameCell>
-                                <StyledImage src={score.logo} />
-                                {value}
-                              </StyledNameCell>
-                            ) : format && typeof value === "number" ? (
-                              format(value)
-                            ) : (
-                              value
+                          <TableCell key={cell.id}>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
                             )}
                           </TableCell>
                         );

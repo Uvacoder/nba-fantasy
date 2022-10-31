@@ -9,7 +9,6 @@ import {
 import { TableContainer, TableCell, TableBody, TableRow } from "@mui/material";
 import numeral from "numeral";
 import autoAnimate from "@formkit/auto-animate";
-
 import {
   ColumnDef,
   flexRender,

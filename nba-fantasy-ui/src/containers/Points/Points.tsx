@@ -53,7 +53,11 @@ export const Points = () => {
             currentMatchUpWeek={currentMatchUpWeek}
             onChangeMatchUpWeek={onChangeMatchUpWeek}
           />
-          <PointsTable scores={scores} isLoading={isScoresUpdating} />
+          <PointsTable
+            scores={scores}
+            isLoading={isScoresUpdating}
+            key={currentMatchUpWeek}
+          />
         </>
       )}
     </>

@@ -16,7 +16,7 @@ export const Categories = () => {
     const loadData = async () => {
       try {
         const response = await getCategories();
-        console.log(response);
+
         setCategories(response);
       } catch {
       } finally {

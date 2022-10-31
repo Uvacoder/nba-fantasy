@@ -18,6 +18,11 @@ export const StyledTable = styled(Table)`
 `;
 
 export const StyledTableHead = styled(TableHead)`
+  > * {
+    &:first-child {
+      display: none;
+    }
+  }
   th {
     font-weight: 600;
   }
