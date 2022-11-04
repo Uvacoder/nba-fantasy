@@ -1,0 +1,1 @@
+export { CategoryTableHead } from "./CategoryTableHead";

@@ -81,6 +81,20 @@ router.get("/categories", async (req, res) => {
     ];
     const trackedLowestStats = ["to"];
 
+    const highestStatRankings = trackedHighestStats.reduce((acc, stat) => {
+      return {
+        ...acc,
+        [stat]: teams.sort((a, b) => b[stat] - a[stat]).map((team) => team.id),
+      };
+    }, {});
+
+    const lowestStatRankings = trackedLowestStats.reduce((acc, stat) => {
+      return {
+        ...acc,
+        [stat]: teams.sort((a, b) => a[stat] - b[stat]).map((team) => team.id),
+      };
+    }, {});
+
     const highestTotalStats = trackedHighestStats.map((stat) => {
       const team = lodash.maxBy(teams, (o) => {
         return o[stat];
@@ -104,7 +118,27 @@ router.get("/categories", async (req, res) => {
     });
 
     const data = {
-      teams: teams,
+      teams: teams.map((team) => {
+        return {
+          ...team,
+          statRankings: {
+            ...trackedHighestStats.reduce(
+              (acc, stat) => ({
+                ...acc,
+                [stat]: highestStatRankings[stat].indexOf(team.id) + 1,
+              }),
+              {}
+            ),
+            ...trackedLowestStats.reduce(
+              (acc, stat) => ({
+                ...acc,
+                [stat]: lowestStatRankings[stat].indexOf(team.id) + 1,
+              }),
+              {}
+            ),
+          },
+        };
+      }),
       categoryLeaders: [...highestTotalStats, ...lowestTotalStats],
     };
 

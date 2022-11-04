@@ -4,12 +4,15 @@ import {
   CategoriesLoadingSkeleton,
   CategoryTable,
   CategoryLeaderList,
+  CategoryTableHead,
 } from "./components";
 import { StyledCategories, StyledHeading } from "./Categories.styles";
+import { teams } from "../../utils/mockData";
 
 export const Categories = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState<any>([]);
+  const [currentTableTotals, setCurrentTableTotals] = useState(1);
 
   useEffect(() => {
     setIsLoading(true);
@@ -36,7 +39,15 @@ export const Categories = () => {
       ) : (
         <>
           <CategoryLeaderList categoryLeaders={categories.categoryLeaders} />
-          <CategoryTable teams={categories.teams} />
+          <CategoryTableHead
+            currentTableTotals={currentTableTotals}
+            onChangeTableTotals={setCurrentTableTotals}
+          />
+          <CategoryTable
+            key={currentTableTotals}
+            teams={teams}
+            hasRankings={currentTableTotals === 2}
+          />
         </>
       )}
     </StyledCategories>

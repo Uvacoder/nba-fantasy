@@ -18,7 +18,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-export const CategoryTable = ({ teams }: any) => {
+export const CategoryTable = ({ teams, hasRankings }: any) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [data] = useState(teams);
   const parent = useRef(null);
@@ -47,55 +47,100 @@ export const CategoryTable = ({ teams }: any) => {
           {
             header: "FG%",
             accessorKey: "fgPercentage",
-            cell: (info: any) => numeral(info.getValue()).format("0.00%"),
+            cell: (info: any) => {
+              const currentRanking =
+                info.row.original.statRankings[info.column.id];
+              const total = numeral(info.getValue()).format("0.00%");
+              return hasRankings ? `(${currentRanking}) ${total}` : total;
+            },
             footer: (props: any) => props.column.id,
           },
           {
             header: "FT%",
             accessorKey: "ftPercentage",
-            cell: (info: any) => numeral(info.getValue()).format("0.00%"),
+            cell: (info: any) => {
+              const currentRanking =
+                info.row.original.statRankings[info.column.id];
+              const total = numeral(info.getValue()).format("0.00%");
+              return hasRankings ? `(${currentRanking}) ${total}` : total;
+            },
             footer: (props: any) => props.column.id,
           },
           {
             header: "3PM",
             accessorKey: "3pm",
-            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            cell: (info: any) => {
+              const currentRanking =
+                info.row.original.statRankings[info.column.id];
+              const total = numeral(info.getValue()).format("0,0");
+              return hasRankings ? `(${currentRanking}) ${total}` : total;
+            },
             footer: (props: any) => props.column.id,
           },
           {
             header: "REB",
             accessorKey: "reb",
-            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            cell: (info: any) => {
+              const currentRanking =
+                info.row.original.statRankings[info.column.id];
+              const total = numeral(info.getValue()).format("0,0");
+              return hasRankings ? `(${currentRanking}) ${total}` : total;
+            },
             footer: (props: any) => props.column.id,
           },
           {
             header: "AST",
             accessorKey: "ast",
-            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            cell: (info: any) => {
+              const currentRanking =
+                info.row.original.statRankings[info.column.id];
+              const total = numeral(info.getValue()).format("0,0");
+              return hasRankings ? `(${currentRanking}) ${total}` : total;
+            },
             footer: (props: any) => props.column.id,
           },
           {
             header: "STL",
             accessorKey: "stl",
-            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            cell: (info: any) => {
+              const currentRanking =
+                info.row.original.statRankings[info.column.id];
+              const total = numeral(info.getValue()).format("0,0");
+              return hasRankings ? `(${currentRanking}) ${total}` : total;
+            },
             footer: (props: any) => props.column.id,
           },
           {
             header: "BLK",
             accessorKey: "blk",
-            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            cell: (info: any) => {
+              const currentRanking =
+                info.row.original.statRankings[info.column.id];
+              const total = numeral(info.getValue()).format("0,0");
+              return hasRankings ? `(${currentRanking}) ${total}` : total;
+            },
             footer: (props: any) => props.column.id,
           },
           {
             header: "TO",
             accessorKey: "to",
-            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            cell: (info: any) => {
+              const currentRanking =
+                info.row.original.statRankings[info.column.id];
+              const total = numeral(info.getValue()).format("0,0");
+              return hasRankings ? `(${currentRanking}) ${total}` : total;
+            },
             footer: (props: any) => props.column.id,
           },
           {
             header: "PTS",
             accessorKey: "pts",
-            cell: (info: any) => numeral(info.getValue()).format("0,0"),
+            cell: (info: any) => {
+              const currentRanking =
+                info.row.original.statRankings[info.column.id];
+              const total = numeral(info.getValue()).format("0,0");
+              return hasRankings ? `(${currentRanking}) ${total}` : total;
+            },
             footer: (props: any) => props.column.id,
           },
         ],
