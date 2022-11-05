@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
-import { getScores, getCurrentMatchupPeriod } from "../../services";
-import {
-  CategoriesLoadingSkeleton,
-  MatchUpTable,
-  TeamDropdown,
-} from "./components";
+import { getScores, getCurrentMatchupPeriod } from "../../../../services";
+import { MatchUpTable, TeamDropdown } from "../index";
 import { data } from "./data";
 
 export const MatchUps = () => {

@@ -10,12 +10,11 @@ export function Dashboard() {
   return (
     <StyledDashboard>
       <MainLayout currentTab={tab} setTab={setTab}>
-        <MatchUps />
-        {/* <>
+        <>
           {tab === TabTypes.Points && <Points />}
           {tab === TabTypes.Categories && <Categories />}
           {tab === TabTypes.MatchUps && <MatchUps />}
-        </> */}
+        </>
       </MainLayout>
     </StyledDashboard>
   );

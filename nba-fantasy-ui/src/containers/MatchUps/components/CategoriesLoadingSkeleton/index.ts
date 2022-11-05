@@ -1,1 +1,0 @@
-export { CategoriesLoadingSkeleton } from "./CategoriesLoadingSkeleton";

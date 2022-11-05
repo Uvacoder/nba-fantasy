@@ -4,13 +4,22 @@ import {
   CategoriesLoadingSkeleton,
   PointsTable,
   MatchUpDropdown,
+  Cat,
+  MatchUps,
 } from "./components";
+import {
+  StyledImage,
+  StyledNavigation,
+  StyledCatIcon,
+  StyledRotoIcon,
+} from "./Points.styles";
 
 export const Points = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [scores, setScores] = useState([]);
   const [currentMatchUpWeek, setCurrentMatchUpWeek] = useState<number>(1);
   const [isScoresUpdating, setIsScoresUpdating] = useState(false);
+  const [type, setType] = useState("roto");
 
   useEffect(() => {
     const loadData = async () => {
@@ -49,15 +58,29 @@ export const Points = () => {
         <CategoriesLoadingSkeleton />
       ) : (
         <>
+          <StyledNavigation>
+            <StyledRotoIcon
+              active={type === "roto"}
+              onClick={() => setType("roto")}
+            />
+            <StyledCatIcon
+              active={type === "cat"}
+              onClick={() => setType("cat")}
+            />
+          </StyledNavigation>
           <MatchUpDropdown
             currentMatchUpWeek={currentMatchUpWeek}
             onChangeMatchUpWeek={onChangeMatchUpWeek}
           />
-          <PointsTable
-            scores={scores}
-            isLoading={isScoresUpdating}
-            key={currentMatchUpWeek}
-          />
+          {type === "roto" ? (
+            <PointsTable
+              scores={scores}
+              isLoading={isScoresUpdating}
+              key={currentMatchUpWeek}
+            />
+          ) : (
+            <MatchUps />
+          )}
         </>
       )}
     </>
