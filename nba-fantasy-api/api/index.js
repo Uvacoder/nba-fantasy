@@ -185,6 +185,7 @@ router.get("/weeklyMatchUp", async (req, res) => {
       (acc, team) => ({
         ...acc,
         [team.id]: {
+          id: team.id,
           name: `${team.location} ${team.nickname}`,
           logo: team.logo,
         },

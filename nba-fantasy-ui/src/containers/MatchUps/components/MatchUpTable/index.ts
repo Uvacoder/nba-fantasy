@@ -1,0 +1,1 @@
+export { MatchUpTable } from "./MatchUpTable";
