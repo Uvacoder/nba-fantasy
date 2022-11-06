@@ -1,6 +1,5 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const router = require("./api/index");
 var cors = require("cors");
 
 const app = express();
@@ -18,7 +17,10 @@ require("dotenv").config({ path: "variables.env" });
 app.use(cookieParser());
 
 // After allllll that above middleware, we finally handle our own routes!
-app.use("/api", router);
+app.use("/api", require("./api/categories"));
+app.use("/api", require("./api/currentMatchupPeriod"));
+app.use("/api", require("./api/ladder"));
+app.use("/api", require("./api/weeklyMatchUp"));
 
 app.set("port", process.env.PORT || 7777);
 const server = app.listen(app.get("port"), () => {
