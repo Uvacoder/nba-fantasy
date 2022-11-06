@@ -60,11 +60,11 @@ export const Points = () => {
         <>
           <StyledNavigation>
             <StyledRotoIcon
-              active={type === "roto"}
+              isactive={type === "roto"}
               onClick={() => setType("roto")}
             />
             <StyledCatIcon
-              active={type === "cat"}
+              isactive={type === "cat"}
               onClick={() => setType("cat")}
             />
           </StyledNavigation>

@@ -25,18 +25,18 @@ export const StyledNavigation = styled.div`
   margin-bottom: 24px;
 `;
 
-export const StyledCatIcon = styled(Cat)<{ active: boolean }>`
+export const StyledCatIcon = styled(Cat)<{ isactive: boolean }>`
   width: 50px;
   height: 50px;
-  fill: ${({ active }) => (active ? "#2196f3" : "black")};
+  fill: ${({ isactive }) => (isactive ? "#2196f3" : "black")};
   animation: fill 600s ease-in-out;
   cursor: pointer;
 `;
 
-export const StyledRotoIcon = styled(Roto)<{ active: boolean }>`
+export const StyledRotoIcon = styled(Roto)<{ isactive: boolean }>`
   width: 50px;
   height: 50px;
-  fill: ${({ active }) => (active ? "#2196f3" : "black")};
+  fill: ${({ isactive }) => (isactive ? "#2196f3" : "black")};
   animation: fill 600s ease-in-out;
   cursor: pointer;
 `;

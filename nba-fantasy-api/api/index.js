@@ -5,14 +5,16 @@ const qs = require("qs");
 const helpers = require("../helpers/index");
 const lodash = require("lodash");
 const string = require("../helpers/string");
+const { config } = require("../config");
 
 const BASE_URL =
   "https://fantasy.espn.com/apis/v3/games/fba/seasons/2023/segments/0/leagues/653588803";
+const GOOGLE_API_BASE_URL = "https://api.apispreadsheets.com/data";
 
 router.get("/currentMatchupPeriod", async (req, res) => {
   try {
     const headers = {
-      Cookie: `SWID="{${process.env.SWID}}"; espn_s2="${process.env.ESPN_S2}"`,
+      Cookie: `SWID="{${config.SWID}}"; espn_s2="${config.ESPN_S2}"`,
       withCredentials: true,
     };
 
@@ -29,7 +31,7 @@ router.get("/currentMatchupPeriod", async (req, res) => {
 router.get("/categories", async (req, res) => {
   try {
     const headers = {
-      Cookie: `SWID="{${process.env.SWID}}"; espn_s2="${process.env.ESPN_S2}"`,
+      Cookie: `SWID="{${config.SWID}}"; espn_s2="${config.ESPN_S2}"`,
       withCredentials: true,
     };
 
@@ -152,7 +154,7 @@ router.get("/weeklyMatchUp", async (req, res) => {
   const matchupPeriodId = req.query.matchupPeriodId;
   try {
     const headers = {
-      Cookie: `SWID="{${process.env.SWID}}"; espn_s2="${process.env.ESPN_S2}"`,
+      Cookie: `SWID="{${config.SWID}}"; espn_s2="${config.ESPN_S2}"`,
       withCredentials: true,
       "x-fantasy-filter": JSON.stringify({
         schedule: {
@@ -246,6 +248,35 @@ router.get("/weeklyMatchUp", async (req, res) => {
     const data = hasBeenPlayed ? weeklyStats : emptyStats;
 
     return res.json(data);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
+router.get("/ladder", async (req, res) => {
+  try {
+    const weeklyRotoWinnerResponse = await axios.get(
+      `${GOOGLE_API_BASE_URL}${config.WEEKLY_ROTO_ENDPOINT}`
+    );
+    const teamResponse = await axios.get(
+      `${GOOGLE_API_BASE_URL}${config.TEAMS_ENDPOINT}`
+    );
+
+    const teamNames = teamResponse.data.data.reduce(
+      (acc, team) => ({ ...acc, [team.id]: team.name }),
+      {}
+    );
+
+    const totals = weeklyRotoWinnerResponse.data.data.reduce((acc, winner) => {
+      return {
+        ...acc,
+        [teamNames[winner.owner_id]]: acc[winner.owner_id]
+          ? acc[winner.owner_id] + 1
+          : 1,
+      };
+    }, {});
+
+    return res.json(totals);
   } catch (error) {
     return res.json(error);
   }
