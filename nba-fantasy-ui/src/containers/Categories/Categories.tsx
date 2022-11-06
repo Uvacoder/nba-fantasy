@@ -7,7 +7,6 @@ import {
   CategoryTableHead,
 } from "./components";
 import { StyledCategories, StyledHeading } from "./Categories.styles";
-import { teams } from "../../utils/mockData";
 
 export const Categories = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -43,11 +42,11 @@ export const Categories = () => {
             currentTableTotals={currentTableTotals}
             onChangeTableTotals={setCurrentTableTotals}
           />
-          <CategoryTable
+          {/* <CategoryTable
             key={currentTableTotals}
             teams={teams}
             hasRankings={currentTableTotals === 2}
-          />
+          /> */}
         </>
       )}
     </StyledCategories>

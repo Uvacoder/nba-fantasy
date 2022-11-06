@@ -105,7 +105,11 @@ export const MatchUpTable = ({ selectedTeam, scores, isLoading }: any) => {
   const test = scores.map((score: any) => {
     const matchUpResult = h2hCategories.reduce(
       (acc, stat): any => {
-        const result = evaluateResult(selectedTeam[stat], score[stat]);
+        const result = evaluateResult(
+          selectedTeam[stat],
+          score[stat],
+          stat === "to"
+        );
 
         return {
           ...acc,
@@ -170,27 +174,32 @@ export const MatchUpTable = ({ selectedTeam, scores, isLoading }: any) => {
                       {columns.map((column) => {
                         const value = row[column.id];
                         const handleResults = () => {
-                          if (column.id === "name") {
-                            return "none";
-                          } else if (
-                            column.id === "matchUpResultAgainstSelectedTeam"
-                          ) {
-                            if (
-                              row["matchUpResult"]["win"] ===
-                              row["matchUpResult"]["loss"]
-                            ) {
-                              return "draw";
-                            } else {
-                              return row["matchUpResult"]["win"] >
+                          switch (column.id) {
+                            case "name":
+                              return "none";
+                            case "matchUpResultAgainstSelectedTeam":
+                              if (
+                                row["matchUpResult"]["win"] ===
                                 row["matchUpResult"]["loss"]
-                                ? "win"
-                                : "loss";
-                            }
-                          } else {
-                            return evaluateResult(
-                              selectedTeam[column.id],
-                              value
-                            );
+                              ) {
+                                return "draw";
+                              } else {
+                                return row["matchUpResult"]["win"] >
+                                  row["matchUpResult"]["loss"]
+                                  ? "win"
+                                  : "loss";
+                              }
+                            case "to":
+                              return evaluateResult(
+                                selectedTeam[column.id],
+                                value,
+                                true
+                              );
+                            default:
+                              return evaluateResult(
+                                selectedTeam[column.id],
+                                value
+                              );
                           }
                         };
                         return (

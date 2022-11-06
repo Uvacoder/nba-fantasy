@@ -33,7 +33,7 @@ router.get("/weeklyMatchUp", async (req, res) => {
       { arrayFormat: "repeat" }
     );
 
-    const response = await axios.get(`${BASE_URL}?${params}`, {
+    const response = await axios.get(`${requestHelpers.BASE_URL}?${params}`, {
       headers,
     });
 

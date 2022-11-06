@@ -8,13 +8,14 @@ import {
   SecondaryNavigation,
 } from "./components";
 import { PointTypes } from "./types";
+import { points } from "../../utils/mockData";
 
 export const Points = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [scores, setScores] = useState([]);
   const [currentMatchUpWeek, setCurrentMatchUpWeek] = useState<number>(1);
   const [isScoresUpdating, setIsScoresUpdating] = useState(false);
-  const [type, setType] = useState<PointTypes>(PointTypes.rotisserie);
+  const [type, setType] = useState<PointTypes>(PointTypes.categories);
 
   useEffect(() => {
     const loadData = async () => {
@@ -64,7 +65,7 @@ export const Points = () => {
               key={currentMatchUpWeek}
             />
           ) : (
-            <MatchUps scores={scores} />
+            <MatchUps scores={points} />
           )}
         </SecondaryNavigation>
       )}

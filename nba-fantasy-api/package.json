@@ -23,6 +23,7 @@
     "qs": "^6.11.0"
   },
   "devDependencies": {
+    "concurrently": "^7.5.0",
     "nodemon": "2.0.14",
     "now": "21.0.1",
     "resolve-url-loader": "4.0.0"

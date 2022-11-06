@@ -1,4 +1,4 @@
-export const teams = [
+export const points = [
   {
     id: 1,
     name: "Big Baller Boys ",
