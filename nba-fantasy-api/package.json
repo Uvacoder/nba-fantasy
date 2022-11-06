@@ -23,11 +23,6 @@
     "qs": "^6.11.0"
   },
   "devDependencies": {
-    "@babel/core": "7.16.0",
-    "@babel/preset-env": "7.16.0",
-    "autoprefixer": "10.4.0",
-    "babel-loader": "8.2.3",
-    "concurrently": "6.3.0",
     "nodemon": "2.0.14",
     "now": "21.0.1",
     "resolve-url-loader": "4.0.0"
