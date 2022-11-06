@@ -15,7 +15,7 @@ export const Points = () => {
   const [scores, setScores] = useState([]);
   const [currentMatchUpWeek, setCurrentMatchUpWeek] = useState<number>(1);
   const [isScoresUpdating, setIsScoresUpdating] = useState(false);
-  const [type, setType] = useState<PointTypes>(PointTypes.categories);
+  const [type, setType] = useState<PointTypes>(PointTypes.rotisserie);
 
   useEffect(() => {
     const loadData = async () => {
