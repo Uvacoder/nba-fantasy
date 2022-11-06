@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import {
   StyledPaper,
   StyledTable,
@@ -50,6 +50,7 @@ export const MatchUpTable = ({ selectedTeam, scores, isLoading }: any) => {
       id: "matchUpResultAgainstSelectedTeam",
       label: "Score",
       align: "right",
+      minWidth: 75,
     },
     {
       id: "fgPercentage",

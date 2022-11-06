@@ -1,37 +1,14 @@
-import { useEffect, useState } from "react";
-import { getScores, getCurrentMatchupPeriod } from "../../../../services";
+import { useState } from "react";
 import { MatchUpTable, TeamDropdown } from "../index";
-import { data } from "./data";
 
-export const MatchUps = () => {
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [scores, setScores] = useState([]);
+export const MatchUps = ({ scores }: any) => {
   const [currentTeam, setCurrentTeam] = useState<string>("1");
-  // const [isScoresUpdating, setIsScoresUpdating] = useState(false);
 
-  // useEffect(() => {
-  //   const loadData = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const currentMatchupPeriod = await getCurrentMatchupPeriod();
-  //       setCurrentMatchUpWeek(currentMatchupPeriod);
-  //       const response = await getScores({
-  //         matchupPeriodId: currentMatchupPeriod,
-  //       });
-
-  //       setScores(response);
-  //     } catch {
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   loadData();
-  // }, []);
-
+  console.log(scores);
   return (
     <>
       <TeamDropdown
-        selectOptions={data.map(({ name, id }) => ({
+        selectOptions={scores.map(({ name, id }: any) => ({
           label: name,
           value: id.toString(),
         }))}
@@ -39,25 +16,12 @@ export const MatchUps = () => {
         onChangeTeam={setCurrentTeam}
       />
       <MatchUpTable
-        selectedTeam={data.find((team) => team.id === parseInt(currentTeam))}
-        scores={data.filter((team) => team.id !== parseInt(currentTeam))}
+        selectedTeam={scores.find(
+          (team: any) => team.id === parseInt(currentTeam)
+        )}
+        scores={scores.filter((team: any) => team.id !== parseInt(currentTeam))}
         isLoading={false}
       />
-      {/* {isLoading ? (
-        <CategoriesLoadingSkeleton />
-      ) : (
-        <>
-          <MatchUpDropdown
-            currentMatchUpWeek={currentMatchUpWeek}
-            onChangeMatchUpWeek={onChangeMatchUpWeek}
-          />
-          <PointsTable
-            scores={scores}
-            isLoading={isScoresUpdating}
-            key={currentMatchUpWeek}
-          />
-        </>
-      )} */}
     </>
   );
 };
