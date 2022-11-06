@@ -65,7 +65,7 @@ export const Points = () => {
               key={currentMatchUpWeek}
             />
           ) : (
-            <MatchUps scores={points} />
+            <MatchUps scores={scores} />
           )}
         </SecondaryNavigation>
       )}
