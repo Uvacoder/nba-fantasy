@@ -11,5 +11,5 @@ export const StyledList = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
-  gap: 10%;
+  gap: 5%;
 `;
