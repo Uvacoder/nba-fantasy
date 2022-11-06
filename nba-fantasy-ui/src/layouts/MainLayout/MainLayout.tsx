@@ -29,7 +29,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         >
           <StyledTab label="Points" value={TabTypes.Points} />
           <StyledTab label="Categories" value={TabTypes.Categories} />
-          <StyledTab label="Match ups" value={TabTypes.MatchUps} />
+          <StyledTab label="Ladder" value={TabTypes.Ladder} />
         </StyledTabs>
       </StyledBox>
       <Container maxWidth="lg">{children}</Container>

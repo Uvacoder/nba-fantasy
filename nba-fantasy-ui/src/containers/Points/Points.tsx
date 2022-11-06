@@ -7,13 +7,14 @@ import {
   MatchUps,
   SecondaryNavigation,
 } from "./components";
+import { PointTypes } from "./types";
 
 export const Points = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [scores, setScores] = useState([]);
   const [currentMatchUpWeek, setCurrentMatchUpWeek] = useState<number>(1);
   const [isScoresUpdating, setIsScoresUpdating] = useState(false);
-  const [type, setType] = useState("roto");
+  const [type, setType] = useState<PointTypes>(PointTypes.rotisserie);
 
   useEffect(() => {
     const loadData = async () => {
@@ -56,7 +57,7 @@ export const Points = () => {
             currentMatchUpWeek={currentMatchUpWeek}
             onChangeMatchUpWeek={onChangeMatchUpWeek}
           />
-          {type === "roto" ? (
+          {type === PointTypes.rotisserie ? (
             <PointsTable
               scores={scores}
               isLoading={isScoresUpdating}
