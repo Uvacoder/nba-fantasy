@@ -4,15 +4,9 @@ import {
   CategoriesLoadingSkeleton,
   PointsTable,
   MatchUpDropdown,
-  Cat,
   MatchUps,
+  SecondaryNavigation,
 } from "./components";
-import {
-  StyledImage,
-  StyledNavigation,
-  StyledCatIcon,
-  StyledRotoIcon,
-} from "./Points.styles";
 
 export const Points = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -57,17 +51,7 @@ export const Points = () => {
       {isLoading ? (
         <CategoriesLoadingSkeleton />
       ) : (
-        <>
-          <StyledNavigation>
-            <StyledRotoIcon
-              isactive={type === "roto"}
-              onClick={() => setType("roto")}
-            />
-            <StyledCatIcon
-              isactive={type === "cat"}
-              onClick={() => setType("cat")}
-            />
-          </StyledNavigation>
+        <SecondaryNavigation type={type} onChangeType={setType}>
           <MatchUpDropdown
             currentMatchUpWeek={currentMatchUpWeek}
             onChangeMatchUpWeek={onChangeMatchUpWeek}
@@ -81,7 +65,7 @@ export const Points = () => {
           ) : (
             <MatchUps />
           )}
-        </>
+        </SecondaryNavigation>
       )}
     </>
   );

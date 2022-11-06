@@ -10,19 +10,18 @@ const { config } = require("../config");
 const BASE_URL =
   "https://fantasy.espn.com/apis/v3/games/fba/seasons/2023/segments/0/leagues/653588803";
 const GOOGLE_API_BASE_URL = "https://api.apispreadsheets.com/data";
+const baseHeaderProps = {
+  Cookie: `SWID="{${config.SWID}}"; espn_s2="${config.ESPN_S2}"`,
+  withCredentials: true,
+};
 
 router.get("/currentMatchupPeriod", async (req, res) => {
   try {
-    const headers = {
-      Cookie: `SWID="{${config.SWID}}"; espn_s2="${config.ESPN_S2}"`,
-      withCredentials: true,
-    };
-
-    const response = await axios.get(BASE_URL, {
-      headers,
+    const { data } = await axios.get(BASE_URL, {
+      headers: baseHeaderProps,
     });
 
-    return res.json(response.data.status.currentMatchupPeriod);
+    return res.json(data.status.currentMatchupPeriod);
   } catch (error) {
     return res.json(error);
   }
@@ -30,11 +29,6 @@ router.get("/currentMatchupPeriod", async (req, res) => {
 
 router.get("/categories", async (req, res) => {
   try {
-    const headers = {
-      Cookie: `SWID="{${config.SWID}}"; espn_s2="${config.ESPN_S2}"`,
-      withCredentials: true,
-    };
-
     const params = qs.stringify(
       {
         view: [
@@ -52,7 +46,7 @@ router.get("/categories", async (req, res) => {
 
     const response = await axios.get(
       `https://fantasy.espn.com/apis/v3/games/fba/seasons/2023/segments/0/leagues/653588803?${params}`,
-      { headers }
+      { headers: baseHeaderProps }
     );
 
     const teams = response.data.teams.map((team) => {
@@ -154,8 +148,7 @@ router.get("/weeklyMatchUp", async (req, res) => {
   const matchupPeriodId = req.query.matchupPeriodId;
   try {
     const headers = {
-      Cookie: `SWID="{${config.SWID}}"; espn_s2="${config.ESPN_S2}"`,
-      withCredentials: true,
+      ...baseHeaderProps,
       "x-fantasy-filter": JSON.stringify({
         schedule: {
           filterMatchupPeriodIds: { value: [matchupPeriodId] },
