@@ -8,7 +8,6 @@ import {
   SecondaryNavigation,
 } from "./components";
 import { PointTypes } from "./types";
-// import { teams } from "../../utils";
 
 export const Points = () => {
   const [isLoading, setIsLoading] = useState(false);

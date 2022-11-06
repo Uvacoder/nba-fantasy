@@ -4,7 +4,6 @@ import { MatchUpTable, TeamDropdown } from "../index";
 export const MatchUps = ({ scores }: any) => {
   const [currentTeam, setCurrentTeam] = useState<string>("1");
 
-  console.log(scores);
   return (
     <>
       <TeamDropdown
